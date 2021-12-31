@@ -33,9 +33,9 @@ Ext.define('FWUE.view.TransactionsList', {
             {
                 getIcon: function(values){
                     var type = values.type,
-                        src  = 'resources/images/icons/btc.png';
+                        src  = 'resources/images/icons/uno.png';
                     if(type=='bet'){
-                        src = 'resources/images/icons/xcp.png';
+                        src = 'resources/images/icons/xup.png';
                     } else if(type=='broadcast'){
                         src = 'resources/images/icons/broadcast.png';
                     } else if(type=='dividend'){

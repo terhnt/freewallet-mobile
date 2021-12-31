@@ -118,7 +118,7 @@ Ext.define('FWUE.view.Settings', {
                             '</div>',
                             {
                                 getIcon: function(values){
-                                    var img  = (values.value==2) ? 'tbtc.png' : 'uno.png',
+                                    var img  = (values.value==2) ? 'tuno.png' : 'uno.png',
                                         icon = '<img src="resources/images/icons/' + img + '"/>';
                                     return icon;
                                 }
@@ -138,7 +138,7 @@ Ext.define('FWUE.view.Settings', {
                             '</div>',
                             {
                                 getIcon: function(values){
-                                    var img  = (values.value=='2') ? 'tbtc.png' : 'uno.png',
+                                    var img  = (values.value=='2') ? 'tuno.png' : 'uno.png',
                                         icon = '<img src="resources/images/icons/' + img + '" width="30"/>';
                                     return icon;
                                 }

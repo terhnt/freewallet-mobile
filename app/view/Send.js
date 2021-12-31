@@ -39,7 +39,7 @@ Ext.define('FWUE.view.Send', {
                     items:[{
                         xtype: 'image',
                         itemId: 'image',
-                        src: 'resources/images/icons/btc.png',
+                        src: 'resources/images/icons/uno.png',
                         width: 48,
                         height: 48,
                         listeners: {
@@ -303,7 +303,7 @@ Ext.define('FWUE.view.Send', {
         if(asset)
             src = 'https://unoparty.xchain.io/icon/' + asset.toUpperCase() + '.png';
         if(asset=='UNO')
-            src = 'resources/images/icons/btc.png';
+            src = 'resources/images/icons/uno.png';
         me.image.setSrc(src);
     },
 
