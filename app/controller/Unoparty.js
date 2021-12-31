@@ -1,6 +1,6 @@
 /*
  * Unoparty.js - Controller
- * 
+ *
  * Defines most of the unoparty-related functions
  */
 Ext.define('FWUE.controller.Unoparty', {
@@ -31,7 +31,7 @@ Ext.define('FWUE.controller.Unoparty', {
             // Handle processing successfull responses
             success: function(res){
                 var o = res;
-                // Handle trying to decode the response text 
+                // Handle trying to decode the response text
                 if(res.responseText){
                     try {
                         var o = Ext.decode(res.responseText);
@@ -57,7 +57,7 @@ Ext.define('FWUE.controller.Unoparty', {
             timeout: 60000,             // timeout after 60 seconds of waiting
             useDefaultXhrHeader: false, // Set to false to make CORS requests (cross-domain)
             headers: {
-                'Authorization': 'Basic ' + auth, 
+                'Authorization': 'Basic ' + auth,
                 'Content-Type': 'application/json; charset=UTF-8'
             },
             success: fn.success,        // Success function called when we receive a success response
@@ -85,7 +85,7 @@ Ext.define('FWUE.controller.Unoparty', {
                 },
                 jsonrpc: "2.0",
                 id: 0
-            },            
+            },
             success: function(o){
                 if(callback)
                     callback(o);
@@ -112,7 +112,7 @@ Ext.define('FWUE.controller.Unoparty', {
                 },
                 jsonrpc: "2.0",
                 id: 0
-            },            
+            },
             success: function(o){
                 if(callback)
                     callback(o);
@@ -141,7 +141,7 @@ Ext.define('FWUE.controller.Unoparty', {
                 },
                 jsonrpc: "2.0",
                 id: 0
-            },            
+            },
             success: function(o){
                 if(callback)
                     callback(o);
@@ -150,8 +150,7 @@ Ext.define('FWUE.controller.Unoparty', {
 
     }
 
-    
+
 
 
 });
-    
