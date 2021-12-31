@@ -147,9 +147,9 @@
             me.feePaid.show();
             me.issuer.show();
         }
-        // Hide miners fees for everything except BTC for now
+        // Hide miners fees for everything except UNO for now
         // Come back at some point and add code to determine miners fees WITHOUT having to make an extra API call
-        if(data.asset=='BTC'){
+        if(data.asset=='UNO'){
             me.fee.show();
         } else {
             me.fee.hide();
@@ -163,7 +163,7 @@
     updateData: function(data){
         // console.log('updateData data=',data);
         var me    = this,
-            fmt   = (/\./.test(data.quantity)||data.asset=='BTC') ? '0,0.00000000' : '0,0',
+            fmt   = (/\./.test(data.quantity)||data.asset=='UNO') ? '0,0.00000000' : '0,0',
             time  = (data.timestamp) ? Ext.Date.format(new Date(parseInt(data.timestamp + '000')),'m-d-Y H:i:s') : '',
             block = (data.block_index) ? numeral(data.block_index).format('0,0') : '-',
             qty   = (data.quantity) ? data.quantity.replace('-','') : 0,
@@ -215,7 +215,7 @@
             showAnimation: 'fadeIn',
             indicator: true
         });
-        if(data.asset=='BTC'){
+        if(data.asset=='UNO'){
             var net  = (FWUE.WALLET_NETWORK==2) ? '/testnet' : '',
                 url  = 'https://blockstream.info' + net + '/api/tx/' + data.hash,
                 href = 'https://blockstream.info' + net + '/tx/' + data.hash;
@@ -227,7 +227,7 @@
                         var fee = (data.fee=='NA') ? data.fee : numeral(String(data.fee).replace('+','').replace('-','')).format('0.00000000');
                         me.updateData(Ext.apply(o,{ 
                             type: 'Send',
-                            asset: 'BTC',
+                            asset: 'UNO',
                             quantity: numeral(o.vout[0].value).multiply(0.00000001).format('0,0.00000000'),
                             hash: data.hash,
                             status: (o.status.block_height) ? 'Valid' : 'Pending',
@@ -243,7 +243,7 @@
                 },
                 failure: function(o){
                     var net  = (FWUE.WALLET_NETWORK==2) ? 'test3' : 'main',
-                        net2 = (FWUE.WALLET_NETWORK==2) ? 'btc-testnet' : 'btc',
+                        net2 = (FWUE.WALLET_NETWORK==2) ? 'uno-testnet' : 'uno',
                         url  = 'https://api.blockcypher.com/v1/btc/' + net + '/txs/' + data.hash,
                         href = 'https://live.blockcypher.com/' + net2 + '/tx/' + data.hash
                     // Request transaction information from blockstream
@@ -254,7 +254,7 @@
                                 var fee = (data.fee=='NA') ? data.fee : numeral(String(data.fee).replace('+','').replace('-','')).format('0.00000000');
                                 me.updateData(Ext.apply(o,{ 
                                     type: 'Send',
-                                    asset: 'BTC',
+                                    asset: 'UNO',
                                     quantity: numeral(o.outputs[0].value).multiply(0.00000001).format('0,0.00000000'),
                                     hash: data.hash,
                                     status: (o.block_height) ? 'Valid' : 'Pending',
@@ -287,7 +287,7 @@
                             message: o.text,
                             value: o.value,
                             type: o.tx_type,
-                            feePaid: o.fee + ' XCP',
+                            feePaid: o.fee + ' XUP',
                             transfer: (o.transfer) ? 'True' : 'False',
                             locked: (o.locked) ? 'True' : 'False',
                             divisible: (o.divisible) ? 'True' : 'False',

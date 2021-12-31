@@ -133,12 +133,12 @@ Ext.define('FWUE.view.Broadcast', {
         if(vals.message==''){
             msg = 'You must enter a message';
         } else {
-            // Validate that we have enough BTC to cover this transaction
-            var balance = me.main.getBalance('BTC'),
-                fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' BTC','')),
+            // Validate that we have enough UNO to cover this transaction
+            var balance = me.main.getBalance('UNO'),
+                fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' UNO','')),
                 bal_sat = me.main.getSatoshis(balance);
             if(fee_sat > bal_sat)
-                msg = 'Bitcoin balance below required amount.<br/>Please fund this address with some Bitcoin and try again.';
+                msg = 'Unobtanium balance below required amount.<br/>Please fund this address with some Unobtanium and try again.';
         }
         if(msg){
             Ext.Msg.alert(null,msg);

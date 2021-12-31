@@ -27,7 +27,7 @@ Ext.application({
 
     controllers: [
         'Main',
-        'Counterparty'
+        'Unoparty'
     ],
 
     profiles: [

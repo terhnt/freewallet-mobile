@@ -38,7 +38,7 @@ Ext.define('FWUE.view.BalancesList', {
                 numberFormat: function(values){
                     var fmt = '0,0',
                         qty = values.quantity;
-                    if(/\./.test(qty) || values.asset=='BTC')
+                    if(/\./.test(qty) || values.asset=='UNO')
                         fmt += '.00000000';
                     return numeral(qty).format(fmt);
                 },
@@ -97,7 +97,7 @@ Ext.define('FWUE.view.BalancesList', {
         // Call parent function
         me.callParent();
         // Handle sorting currencies by type and name
-        // We do this so we show currencies (BTC,XCP) before assets
+        // We do this so we show currencies (UNO,XUP) before assets
         me.getStore().sort([{
             property : 'type',
             direction: 'ASC'

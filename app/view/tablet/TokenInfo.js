@@ -99,11 +99,11 @@
                     label: 'USD Price',
                     itemId: 'usd'
                 },{
-                    label: 'BTC Price',
-                    itemId: 'btc'
+                    label: 'UNO Price',
+                    itemId: 'uno'
                 },{
-                    label: 'XCP Price',
-                    itemId: 'xcp'
+                    label: 'XUP Price',
+                    itemId: 'xup'
                 },{
                     label: 'Divisible',
                     itemId: 'divisible'

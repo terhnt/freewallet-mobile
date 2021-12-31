@@ -107,8 +107,8 @@
         me.divisible.setValue((data.divisible) ? 'True' : 'False');
         me.locked.setValue((data.locked) ? 'True' : 'False');
         var usd = (data.estimated_value) ? data.estimated_value.usd : 0,
-            btc = (data.estimated_value) ? data.estimated_value.btc : 0,
-            xcp = (data.estimated_value) ? data.estimated_value.xcp : 0;
+            UNO = (data.estimated_value) ? data.estimated_value.btc : 0,
+            XUP = (data.estimated_value) ? data.estimated_value.xcp : 0;
         me.usd.setValue(numeral(usd).format('0,0.00'));
         me.btc.setValue(numeral(btc).format('0,0.00000000'));
         me.xcp.setValue(numeral(xcp).format('0,0.00000000'));
@@ -122,19 +122,19 @@
     // Handle requesting basic asset information
     getTokenInfo: function(data){
         var me   = this;
-        if(data.asset=='BTC'){
-            var price_usd = me.main.getCurrencyPrice('bitcoin','usd'),
+        if(data.asset=='UNO'){
+            var price_usd = me.main.getCurrencyPrice('unobtanium','usd'),
                 values = Ext.apply(data.estimated_value,{
                 usd: price_usd
             });
             me.updateData({
-                asset: 'BTC',
+                asset: 'UNO',
                 quantity: data.quantity,
                 supply: '21000000.00000000',
-                website: 'http://bitcoin.org',
+                website: 'http://unobtanium.uno',
                 divisible: true,
                 locked: true,
-                description: 'Bitcoin is digital money',
+                description: 'Unobtanium is digital money',
                 estimated_value: values
             });
         } else {
@@ -150,10 +150,10 @@
                 var desc = o.description;
                 if(me.main.isUrl(desc))
                     o.website = desc;
-                if(data.asset=='XCP'){
-                    o.website = 'https://counterparty.io';
+                if(data.asset=='XUP'){
+                    o.website = 'https://unoparty.io';
                     o.locked = true;
-                    o.description = 'Counterparty extends Bitcoin in new and powerful ways.';                       
+                    o.description = 'Unoparty extends Unobtanium in new and powerful ways.';                       
                 }
                 me.updateData(Ext.apply(o,{ 
                     quantity: data.quantity,

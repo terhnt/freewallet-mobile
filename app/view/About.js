@@ -27,7 +27,7 @@
             },{
                 xtype: 'container',
                 margin: '10 0 5 0',
-                html:'<p align="justify">FreeWallet is a free open-source mobile wallet which supports Bitcoin and tokens. FreeWallet uses public APIs available from xchain.io, coindaddy.io, blockcypher.com, blockstream.info, and chain.so.</p>'
+                html:'<p align="justify">FreeWallet is a free open-source mobile wallet which supports Unobtanium and tokens. FreeWallet uses public APIs available from xchain.io, coindaddy.io, blockcypher.com, blockstream.info, and chain.so.</p>'
             },{
                 margin: '10 0 0 0',
                 html:'<p align="justify"><b>Send a donation to support FreeWallet hosting and development.</b></p>' + 
@@ -43,7 +43,7 @@
                     var me = Ext.getCmp('aboutView');
                     me.main.showTool('send', {
                         reset: true,
-                        currency: 'BTC',
+                        currency: 'UNO',
                         address: '1FWDonkMbC6hL64JiysuggHnUAw2CKWszs'
                     });
                 }

@@ -63,7 +63,7 @@ Ext.define('FWUE.view.Send', {
                         store: 'Balances',
                         displayField: 'display_name',
                         valueField: 'asset',
-                        value: 'BTC',
+                        value: 'UNO',
                         defaultTabletPickerConfig: {
                             cls: 'fw-currency-picker',
                             itemTpl: new Ext.XTemplate(
@@ -104,7 +104,7 @@ Ext.define('FWUE.view.Send', {
                             // When currency changes, update currency image and balance
                             change: function(cmp, value){
                                 var me   = Ext.getCmp('sendView'),
-                                    step = (value=='BTC') ? 0.01 : 1;
+                                    step = (value=='UNO') ? 0.01 : 1;
                                 me.amount.setValue(0);
                                 me.amount.setStepValue(step);
                                 me.updateImage(value);
@@ -157,7 +157,7 @@ Ext.define('FWUE.view.Send', {
                                     newVal = 0;
                                 // Handle updating amount
                                 if(!me.price.isDisabled() && me.tokenInfo && me.tokenInfo.estimated_value.btc!='0.00000000'){
-                                    var price_usd = me.main.getCurrencyPrice('bitcoin','usd');
+                                    var price_usd = me.main.getCurrencyPrice('unobtanium','usd');
                                     // Calculate amount via ((quantity_usd / btc_price_usd) / asset_btc)
                                     // We do this because it is more accurate than using the asset USD value
                                     var amount = ((numeral(newVal).value() / price_usd) / me.tokenInfo.estimated_value.btc);
@@ -185,7 +185,7 @@ Ext.define('FWUE.view.Send', {
                                     cur = me.asset.getValue();
                                 // Handle updating price
                                 if(!me.price.isDisabled() && me.tokenInfo && me.tokenInfo.estimated_value.btc!='0.00000000'){
-                                    var price_usd = me.main.getCurrencyPrice('bitcoin','usd');
+                                    var price_usd = me.main.getCurrencyPrice('unobtanium','usd');
                                     // Calculate price via ((asset_btc_price * quantity) * current_btc_price)
                                     // We do this because it is more accurate than using the asset USD value
                                     var price = (me.tokenInfo.estimated_value.btc *  numeral(newVal).value()) * price_usd;
@@ -254,7 +254,7 @@ Ext.define('FWUE.view.Send', {
             me.priority.reset();
         }
         // Set asset and update asset field value
-        var asset = (cfg.asset) ? cfg.asset : 'BTC';
+        var asset = (cfg.asset) ? cfg.asset : 'UNO';
         me.asset.setValue(asset);
         // Get aset value and update image and balance (do this so asset and icon always match)
         var val = me.asset.getValue();
@@ -268,11 +268,11 @@ Ext.define('FWUE.view.Send', {
     // Handle getting information on a specific token
     getTokenInfo: function(asset){
         var me = this;
-        if(asset=='BTC'){
-            var price_usd = me.main.getCurrencyPrice('bitcoin','usd'),
-                price_btc = me.main.getCurrencyPrice('counterparty','btc');
+        if(asset=='UNO'){
+            var price_usd = me.main.getCurrencyPrice('unobtanium','usd'),
+                price_btc = me.main.getCurrencyPrice('unoparty','uno');
             me.tokenInfo = {
-                asset: 'BTC',
+                asset: 'UNO',
                 estimated_value : {
                     btc: 1.00000000,
                     usd: price_usd,
@@ -302,7 +302,7 @@ Ext.define('FWUE.view.Send', {
             src = 'resources/images/wallet.png';
         if(asset)
             src = 'https://xchain.io/icon/' + asset.toUpperCase() + '.png';
-        if(asset=='BTC')
+        if(asset=='UNO')
             src = 'resources/images/icons/btc.png';
         me.image.setSrc(src);
     },
@@ -351,8 +351,8 @@ Ext.define('FWUE.view.Send', {
             msg     = false,
             amount  = String(vals.amount).replace(',',''),
             amt_sat = me.main.getSatoshis(amount),
-            fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' BTC','')),
-            bal_sat = me.main.getSatoshis(me.main.getBalance('BTC'));
+            fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' UNO','')),
+            bal_sat = me.main.getSatoshis(me.main.getBalance('UNO'));
         // Verify that we have all the info required to do a send
         if(vals.amount==0){
             msg = 'You must enter a send amount';
@@ -360,10 +360,10 @@ Ext.define('FWUE.view.Send', {
             msg = 'You must enter a valid address';
         } else {
             if(fee_sat > bal_sat)
-                msg = 'BTC balance below required amount.<br/>Please fund this address with some Bitcoin and try again.';
-            if(vals.asset=='BTC' && (amt_sat + fee_sat) > bal_sat)
+                msg = 'UNO balance below required amount.<br/>Please fund this address with some Unobtanium and try again.';
+            if(vals.asset=='UNO' && (amt_sat + fee_sat) > bal_sat)
                 msg = 'Total exceeds available amount!<br/>Please adjust the amount or miner fee.';
-            if(vals.asset!='BTC' && parseFloat(amount) > parseFloat(me.balance))
+            if(vals.asset!='UNO' && parseFloat(amount) > parseFloat(me.balance))
                 msg = 'Amount exceeds balance amount!';
         }
         if(msg){

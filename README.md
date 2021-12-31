@@ -1,13 +1,13 @@
 FreeWallet
 =====
-FreeWallet is an open source mobile wallet which supports Bitcoin and Counterparty.
+FreeWallet is an open source mobile wallet which supports Unobtanium and Unoparty.
 
 Features
 =====
 - **Secure** - Wallet Passphrase & private keys never leave device
-- **Send** - Send Bitcoin, XCP, and any counterparty token/asset
+- **Send** - Send Unobtanium, XUP, and any unoparty token/asset
 - **Receive** - Receive payments via scanning QRCode
-- **Issue** - Create a Counterparty token/asset
+- **Issue** - Create a Unoparty token/asset
 - **Sign** - Sign any message
 - **Broadcast** - Broadcast any message
 - **Passcode/PIN** - Protect wallet with additional security

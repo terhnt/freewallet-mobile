@@ -1,9 +1,9 @@
 /*
- * Counterparty.js - Controller
+ * Unoparty.js - Controller
  * 
- * Defines most of the counterparty-related functions
+ * Defines most of the unoparty-related functions
  */
-Ext.define('FWUE.controller.Counterparty', {
+Ext.define('FWUE.controller.Unoparty', {
     extend: 'Ext.app.Controller',
     requires: [
         'Ext.MessageBox',
@@ -17,7 +17,7 @@ Ext.define('FWUE.controller.Counterparty', {
     },
 
 
-    // Handle sending a JSON-RPC request to a counterparty server
+    // Handle sending a JSON-RPC request to a unoparty server
     request: function(request, callback){
         var me   = this,
             net  = (FWUE.WALLET_NETWORK==2) ? 'testnet' : 'mainnet',
@@ -44,7 +44,7 @@ Ext.define('FWUE.controller.Counterparty', {
             },
             failure: function(res){
                 if(res.status==0)
-                    Ext.Msg.alert('Error','Error communicating with counterparty server');
+                    Ext.Msg.alert('Error','Error communicating with unoparty server');
                 if(callback)
                     callback();
             },

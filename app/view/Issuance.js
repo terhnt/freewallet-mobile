@@ -194,9 +194,9 @@ Ext.define('FWUE.view.Issuance', {
             len     = vals.name.length,
             type    = vals.type,
             first   = vals.name.substr(0,1),
-            btc_bal = me.main.getBalance('BTC'),
-            xcp_bal = me.main.getBalance('XCP'),
-            fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' BTC','')),
+            btc_bal = me.main.getBalance('UNO'),
+            xcp_bal = me.main.getBalance('XUP'),
+            fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' UNO','')),
             btc_sat = me.main.getSatoshis(btc_bal),
             qty_sat = me.main.getSatoshis(vals.quantity);
         // Validate the issuance data and display any 
@@ -210,7 +210,7 @@ Ext.define('FWUE.view.Issuance', {
             else if(first=='A')
                 msg = 'Alphabetical tokens can not start with the letter A.';
             else if(xcp_bal<0.5)
-                msg = '0.5 XCP Required.<br/>Please fund this address with some XCP and try again.';
+                msg = '0.5 XUP Required.<br/>Please fund this address with some XUP and try again.';
         } else if(type==2){
             if(len<19||len>21)
                 msg = 'Numeric tokens must be between 19-21 characters long.';
@@ -224,7 +224,7 @@ Ext.define('FWUE.view.Issuance', {
             else if(vals.name.indexOf('..')!=-1)
                 msg = 'Subassets cannot contain multiple consecutive periods (..)';
         } else if(fee_sat > btc_sat){
-            msg = 'Bitcoin balance below required amount.<br/>Please fund this address with some Bitcoin and try again.';
+            msg = 'Unobtanium balance below required amount.<br/>Please fund this address with some Unobtanium and try again.';
         }
         if(msg){
             Ext.Msg.alert(null,msg);

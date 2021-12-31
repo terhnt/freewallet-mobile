@@ -40,7 +40,7 @@ Ext.define('FWUE.view.TransactionsList', {
                         src = 'resources/images/icons/broadcast.png';
                     } else if(type=='dividend'){
                         src = 'resources/images/icons/dividend.png';
-                    } else if((type=='send'||type=='order'||type=='issuance') && values.asset!='BTC'){
+                    } else if((type=='send'||type=='order'||type=='issuance') && values.asset!='UNO'){
                         src = 'https://xchain.io/icon/'  + String(values.asset).toUpperCase() + '.png';
                     }
                     icon = '<img src="' + src + '"/>';
@@ -60,20 +60,20 @@ Ext.define('FWUE.view.TransactionsList', {
                     } else if(type=='bet'){
                         str = 'Bet ';
                     } else if(type=='broadcast'){
-                        str = 'Counterparty Broadcast';
+                        str = 'Unoparty Broadcast';
                     } else if(type=='burn'){
                         str = 'Burned ';
                     } else if(type=='dividend'){
                         str = 'Paid Dividend on ';
                     } else if(type=='issuance'){
-                        str = 'Counterparty Issuance';
+                        str = 'Unoparty Issuance';
                     } else if(type=='order'){
                         str = 'Order - Buy ';
                     } else if(type=='cancel'){
                         str = 'Order - Cancel ';
                     }
                     if(type=='send'||type=='bet'||type=='burn'||type=='order'){
-                        if(/\./.test(amt) || values.asset=='BTC')
+                        if(/\./.test(amt) || values.asset=='UNO')
                             fmt += '.00000000';
                         str += numeral(amt).format(fmt);
                     }
@@ -144,7 +144,7 @@ Ext.define('FWUE.view.TransactionsList', {
         // Call parent function
         me.callParent();
         // Handle sorting currencies by type and name
-        // We do this so we show currencies (BTC,XCP) before assets
+        // We do this so we show currencies (UNO,XUP) before assets
         me.getStore().sort([{
             property : 'time',
             direction: 'DESC'

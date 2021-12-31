@@ -118,7 +118,7 @@ Ext.define('FWUE.view.Settings', {
                             '</div>',
                             {
                                 getIcon: function(values){
-                                    var img  = (values.value==2) ? 'tbtc.png' : 'btc.png',
+                                    var img  = (values.value==2) ? 'tbtc.png' : 'uno.png',
                                         icon = '<img src="resources/images/icons/' + img + '"/>';
                                     return icon;
                                 }
@@ -138,7 +138,7 @@ Ext.define('FWUE.view.Settings', {
                             '</div>',
                             {
                                 getIcon: function(values){
-                                    var img  = (values.value=='2') ? 'tbtc.png' : 'btc.png',
+                                    var img  = (values.value=='2') ? 'tbtc.png' : 'uno.png',
                                         icon = '<img src="resources/images/icons/' + img + '" width="30"/>';
                                     return icon;
                                 }
@@ -286,65 +286,65 @@ Ext.define('FWUE.view.Settings', {
                 items:[{
                     xtype: 'field',
                     labelAlign: 'top',
-                    label: 'Bitcoin Mainnet'
+                    label: 'Unobtanium Mainnet'
                 },{
                     name: 'mainnet.cpHost',
                     label: 'CP Host',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the hostname of a Counterparty server you would like to use.');
+                        Ext.Msg.alert(null, 'This is the hostname of a Unoparty server you would like to use.');
                     }
                 },{
                     name: 'mainnet.cpPort',
                     label: 'CP Port',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the port on which the Counterparty server is running.');
+                        Ext.Msg.alert(null, 'This is the port on which the Unoparty server is running.');
                     }
                 },{
                     name: 'mainnet.cpUser',
                     label: 'CP User',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the username you would like to use to login to the Counterparty server.');
+                        Ext.Msg.alert(null, 'This is the username you would like to use to login to the Unoparty server.');
                     }
                 },{
                     name: 'mainnet.cpPass',
                     label: 'CP Pass',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the password you would like to use to login to the Counterparty server.');
+                        Ext.Msg.alert(null, 'This is the password you would like to use to login to the Unoparty server.');
                     }
                 },{
                     type: 'togglefield',
                     name: 'mainnet.cpSSL',
                     label: 'Use SSL',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This determines if the Counterparty server uses an SSL certificate.');
+                        Ext.Msg.alert(null, 'This determines if the Unoparty server uses an SSL certificate.');
                     }
                 },{
                     xtype: 'field',
                     labelAlign: 'top',
-                    label: 'Bitcoin Testnet'
+                    label: 'Unobtanium Testnet'
                 },{
                     name: 'testnet.cpHost',
                     label: 'CP Host',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the hostname of a Counterparty server you would like to use.');
+                        Ext.Msg.alert(null, 'This is the hostname of a Unoparty server you would like to use.');
                     }
                 },{
                     name: 'testnet.cpPort',
                     label: 'CP Port',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the port on which the Counterparty server is running.');
+                        Ext.Msg.alert(null, 'This is the port on which the Unoparty server is running.');
                     }
                 },{
                     name: 'testnet.cpUser',
                     label: 'CP User',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the username you would like to use to login to the Counterparty server.');
+                        Ext.Msg.alert(null, 'This is the username you would like to use to login to the Unoparty server.');
                     }
                 },{
                     name: 'testnet.cpPass',
                     label: 'CP Pass',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the password you would like to use to login to the Counterparty server.');
+                        Ext.Msg.alert(null, 'This is the password you would like to use to login to the Unoparty server.');
                     }
                 },{
                     type: 'togglefield',
@@ -352,7 +352,7 @@ Ext.define('FWUE.view.Settings', {
                     label: 'Use SSL',
                     // cls: 'x-last-field',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This determines if the Counterparty server uses an SSL certificate.');
+                        Ext.Msg.alert(null, 'This determines if the Unoparty server uses an SSL certificate.');
                     }
                 }]
             },{
