@@ -1,6 +1,6 @@
-FreeWallet
+FreeWallet Unobtanium
 =====
-FreeWallet is an open source mobile wallet which supports Unobtanium and Unoparty.
+FreeWallet Unobtanium is an open source mobile wallet forked from Freewallet.io which supports Unobtanium and Unoparty.
 
 Features
 =====
@@ -18,4 +18,4 @@ Features
 
 Comments or Questions?
 =====
-Submit an issue here or send email to info@freewallet.io
+Submit an issue here or send email to info@unobtanium.uno or the original developers info@freewallet.io
