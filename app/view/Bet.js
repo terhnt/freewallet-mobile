@@ -4,7 +4,7 @@
  * Handles displaying betting tools
  */
 
-Ext.define('FW.view.Bet', {
+Ext.define('FWUE.view.Bet', {
     extend: 'Ext.Container',
     
     config: {
@@ -36,7 +36,7 @@ Ext.define('FW.view.Bet', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Call parent
         me.callParent();

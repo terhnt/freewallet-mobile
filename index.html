@@ -31,9 +31,9 @@
         function handleOpenURL(data){
             var re = /^(bitcoin|counterparty|freewallet):/i;
             if(data && re.test(data))
-                FW.LAUNCH_DATA = data;
+                FWUE.LAUNCH_DATA = data;
             setTimeout(function(){
-                var cmp = FW.app.getController('Main');
+                var cmp = FWUE.app.getController('Main');
                 if(cmp)
                     cmp.processLaunchData();
             }, 0);

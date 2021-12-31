@@ -4,7 +4,7 @@
  * Display balances list and token info on tablet
  */
 
-Ext.define('FW.view.tablet.Balances', {
+Ext.define('FWUE.view.tablet.Balances', {
     extend: 'Ext.Container',
 
     config: {

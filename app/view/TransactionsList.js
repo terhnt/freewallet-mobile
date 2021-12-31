@@ -4,7 +4,7 @@
  * Handles displaying transaction history list
  */
 
-Ext.define('FW.view.TransactionsList', {
+Ext.define('FWUE.view.TransactionsList', {
     extend: 'Ext.dataview.List',
     xtype: 'fw-transactionslist',
 
@@ -123,7 +123,7 @@ Ext.define('FW.view.TransactionsList', {
                     me.setMasked(false);
                     me.refreshing = false;
                 };
-                me.main.getAddressHistory(FW.WALLET_ADDRESS.address, cb);
+                me.main.getAddressHistory(FWUE.WALLET_ADDRESS.address, cb);
             }        
         }]
     },
@@ -131,16 +131,16 @@ Ext.define('FW.view.TransactionsList', {
     initialize: function(){
         var me  = this;
         // Setup alias to toolbar
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Display the menu button if we are on a phone
         if(me.main.deviceType=='phone')
             me.tb.menuBtn.show();
         // Display address label in titlebar, wrap at 220 pixels, display address on tap
-        me.tb.tb.setTitle(FW.WALLET_ADDRESS.label);
+        me.tb.tb.setTitle(FWUE.WALLET_ADDRESS.label);
         var title = me.tb.tb.element.down('.x-title');
         title.setMaxWidth(220);
-        title.on('tap',function(){ me.main.showQRCodeView({ text: FW.WALLET_ADDRESS.address }); });
+        title.on('tap',function(){ me.main.showQRCodeView({ text: FWUE.WALLET_ADDRESS.address }); });
         // Call parent function
         me.callParent();
         // Handle sorting currencies by type and name

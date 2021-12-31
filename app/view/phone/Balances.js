@@ -3,7 +3,7 @@
  * 
  * Display balances list and token info on phone
  */
-Ext.define('FW.view.phone.Balances', {
+Ext.define('FWUE.view.phone.Balances', {
     extend: 'Ext.Container',
 
     config: {

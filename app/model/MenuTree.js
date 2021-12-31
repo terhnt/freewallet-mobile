@@ -1,7 +1,7 @@
 /*
  * MenuTree.js - Model
  */
-Ext.define('FW.model.MenuTree', {
+Ext.define('FWUE.model.MenuTree', {
     extend: 'Ext.data.Model',
     config: {
         fields: [

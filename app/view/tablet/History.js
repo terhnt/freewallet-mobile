@@ -4,7 +4,7 @@
  * Display transaction history info on phone
  */
 
-Ext.define('FW.view.tablet.History', {
+Ext.define('FWUE.view.tablet.History', {
     extend: 'Ext.Container',
 
     config: {

@@ -1,7 +1,7 @@
 /*
  * Balances.js - Model
  */
-Ext.define('FW.model.Balances', {
+Ext.define('FWUE.model.Balances', {
     extend: 'Ext.data.Model',
     config: {
         fields: [

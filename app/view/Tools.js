@@ -4,20 +4,20 @@
  * Handle displaying Tools
  */
 
-Ext.define('FW.view.Tools', {
+Ext.define('FWUE.view.Tools', {
     extend: 'Ext.Container',
 
     requires:[
-        'FW.view.phone.Tools',
-        'FW.view.tablet.Tools',
-        'FW.view.Bet',
-        'FW.view.Broadcast',
-        'FW.view.Dividend',
-        'FW.view.Exchange',
-        'FW.view.Issuance',
-        'FW.view.OTCMarket',
-        'FW.view.Send',
-        'FW.view.Sign'
+        'FWUE.view.phone.Tools',
+        'FWUE.view.tablet.Tools',
+        'FWUE.view.Bet',
+        'FWUE.view.Broadcast',
+        'FWUE.view.Dividend',
+        'FWUE.view.Exchange',
+        'FWUE.view.Issuance',
+        'FWUE.view.OTCMarket',
+        'FWUE.view.Send',
+        'FWUE.view.Sign'
     ],
 
     config: {
@@ -29,9 +29,9 @@ Ext.define('FW.view.Tools', {
     initialize: function(){
         var me = this;
         // Setup alias to main controller
-        me.main  = FW.app.getController('Main');
+        me.main  = FWUE.app.getController('Main');
         // Add view based on device type
-        me.add({ xclass:'FW.view.' + me.main.deviceType + '.Tools' });
+        me.add({ xclass:'FWUE.view.' + me.main.deviceType + '.Tools' });
         // Setup some aliases to the various components
         me.list  = me.down('fw-toolslist');
         me.cards = me.down('[itemId=tools]');
@@ -61,15 +61,15 @@ Ext.define('FW.view.Tools', {
     },
 
     // Define some quick aliases for showing the different views
-    showSendTool:       function(cfg){ this.showView('sendView','FW.view.Send',cfg);  },
-    showIssueTool:      function(cfg){ this.showView('issuanceView','FW.view.Issuance',cfg);  },
-    showBroadcastTool:  function(cfg){ this.showView('broadcastView','FW.view.Broadcast',cfg);  },
-    showExchangeTool:   function(cfg){ this.showView('exchangeView','FW.view.Exchange',cfg);  },
-    showSignTool:       function(cfg){ this.showView('signView','FW.view.Sign',cfg);  },
-    showOTCMarketTool:  function(cfg){ this.showView('otcMarketView','FW.view.OTCMarket',cfg);  },
-    showReceiveTool:    function(cfg){ this.showView('receiveView','FW.view.Receive',cfg);  },
-    showDividendTool:   function(cfg){ this.showView('dividendView','FW.view.Dividend',cfg);  },
-    showBetTool:        function(cfg){ this.showView('betView','FW.view.Bet',cfg);  }
+    showSendTool:       function(cfg){ this.showView('sendView','FWUE.view.Send',cfg);  },
+    showIssueTool:      function(cfg){ this.showView('issuanceView','FWUE.view.Issuance',cfg);  },
+    showBroadcastTool:  function(cfg){ this.showView('broadcastView','FWUE.view.Broadcast',cfg);  },
+    showExchangeTool:   function(cfg){ this.showView('exchangeView','FWUE.view.Exchange',cfg);  },
+    showSignTool:       function(cfg){ this.showView('signView','FWUE.view.Sign',cfg);  },
+    showOTCMarketTool:  function(cfg){ this.showView('otcMarketView','FWUE.view.OTCMarket',cfg);  },
+    showReceiveTool:    function(cfg){ this.showView('receiveView','FWUE.view.Receive',cfg);  },
+    showDividendTool:   function(cfg){ this.showView('dividendView','FWUE.view.Dividend',cfg);  },
+    showBetTool:        function(cfg){ this.showView('betView','FWUE.view.Bet',cfg);  }
 
 });
 

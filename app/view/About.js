@@ -4,7 +4,7 @@
  * Displaying information about the wallet, website, developers, etc.
  */
 
- Ext.define('FW.view.About', {
+ Ext.define('FWUE.view.About', {
     extend: 'Ext.Container',
 
     config: {
@@ -79,7 +79,7 @@
     initialize: function(){
         var me = this;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.donate = me.down('[itemId=donate]');
         // Hide donate button on iOS cuz they only allow in-app purchases (lame)
         if(Ext.os.name=='iOS')

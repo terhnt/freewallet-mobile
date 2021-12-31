@@ -4,7 +4,7 @@
  * Display issuance form
  */
  
-Ext.define('FW.view.Issuance', {
+Ext.define('FWUE.view.Issuance', {
     extend: 'Ext.form.Panel',
     
     config: {
@@ -145,7 +145,7 @@ Ext.define('FW.view.Issuance', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         me.type        = me.down('[name=type]');
@@ -249,17 +249,17 @@ Ext.define('FW.view.Issuance', {
                     me.priority.reset();
                 }
             };
-            me.main.cpIssuance(FW.WALLET_NETWORK, FW.WALLET_ADDRESS.address, vals.name, vals.description, vals.divisible, qty_sat, null, fee_sat, cb);
+            me.main.cpIssuance(FWUE.WALLET_NETWORK, FWUE.WALLET_ADDRESS.address, vals.name, vals.description, vals.divisible, qty_sat, null, fee_sat, cb);
         }        
         // Make call to xchain API to check if asset already is registered
-        var host = (FW.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
+        var host = (FWUE.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
         me.main.ajaxRequest({
             url: 'https://' + host + '/api/asset/' + vals.name,
             success: function(o){
                 var valid = false;
-                if(o.error=='Asset not found' || o.owner==FW.WALLET_ADDRESS.address)
+                if(o.error=='Asset not found' || o.owner==FWUE.WALLET_ADDRESS.address)
                     valid = true;
-                else if(o.owner!=FW.WALLET_ADDRESS.address)
+                else if(o.owner!=FWUE.WALLET_ADDRESS.address)
                     Ext.Msg.alert(null,'Token is already registered to a different address.');
                 if(valid){
                     // Confirm action with user

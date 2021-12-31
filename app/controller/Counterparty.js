@@ -3,7 +3,7 @@
  * 
  * Defines most of the counterparty-related functions
  */
-Ext.define('FW.controller.Counterparty', {
+Ext.define('FWUE.controller.Counterparty', {
     extend: 'Ext.app.Controller',
     requires: [
         'Ext.MessageBox',
@@ -13,15 +13,15 @@ Ext.define('FW.controller.Counterparty', {
     // Setup alias back to main controller
     launch: function(){
         var me = this;
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
     },
 
 
     // Handle sending a JSON-RPC request to a counterparty server
     request: function(request, callback){
         var me   = this,
-            net  = (FW.WALLET_NETWORK==2) ? 'testnet' : 'mainnet',
-            info = FW.SERVER_INFO[net],
+            net  = (FWUE.WALLET_NETWORK==2) ? 'testnet' : 'mainnet',
+            info = FWUE.SERVER_INFO[net],
             url  = ((info.cpSSL) ? 'https' : 'http') + '://' + info.cpHost + ':' + info.cpPort + '/api/',
             auth = $.base64.btoa(info.cpUser + ':' + info.cpPass);
         // Stash the original success function for use later

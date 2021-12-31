@@ -4,7 +4,7 @@
  * Display address list
  */
 
-Ext.define('FW.view.AddressList', {
+Ext.define('FWUE.view.AddressList', {
     extend: 'Ext.dataview.List',
     xtype: 'fw-addresslist',
 
@@ -36,7 +36,7 @@ Ext.define('FW.view.AddressList', {
             {
                 getClasses: function(values){
                     var cls = 'fw-addresslist-address ';
-                    if(values.address==FW.WALLET_ADDRESS.address)
+                    if(values.address==FWUE.WALLET_ADDRESS.address)
                         cls += 'current-address';
                     return cls;
                 },
@@ -62,7 +62,7 @@ Ext.define('FW.view.AddressList', {
             title: 'Select Address',
             back: true,
             onBack: function(){
-                FW.app.getController('Main').showMainView();
+                FWUE.app.getController('Main').showMainView();
             },
             plus: true,
             onPlus: function(){
@@ -103,7 +103,7 @@ Ext.define('FW.view.AddressList', {
         var me     = this,
             cfg   = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         // Setup some aliases for the various components
         me.tb     = me.down('fw-toptoolbar');
         me.search = me.getComponent('listSearch');
@@ -136,7 +136,7 @@ Ext.define('FW.view.AddressList', {
                         filterFn: function(item){
                             var o = item.data;
                             // Only show addresses for the current wallet 
-                            if(o.prefix==FW.WALLET_PREFIX && o.network==FW.WALLET_NETWORK){
+                            if(o.prefix==FWUE.WALLET_PREFIX && o.network==FWUE.WALLET_NETWORK){
                                 if(str){
                                     if(o.address && String(o.address).match(regexp)!=null)
                                         return true;

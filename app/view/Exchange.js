@@ -4,7 +4,7 @@
  * Display decentralized exchange view 
  */
 
-Ext.define('FW.view.Exchange', {
+Ext.define('FWUE.view.Exchange', {
     extend: 'Ext.Container',
     
     config: {
@@ -36,7 +36,7 @@ Ext.define('FW.view.Exchange', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         // me.currency    = me.down('[name=currency]');

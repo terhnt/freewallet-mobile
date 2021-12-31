@@ -4,7 +4,7 @@
  * Handle displaying sign message view
  */
  
-Ext.define('FW.view.Sign', {
+Ext.define('FWUE.view.Sign', {
     extend: 'Ext.form.Panel',
     
     config: {
@@ -108,7 +108,7 @@ Ext.define('FW.view.Sign', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         // me.address   = me.down('[name=address]');
@@ -133,7 +133,7 @@ Ext.define('FW.view.Sign', {
         }
         // Handle resetting all fields back to default
         if(cfg.reset){
-            // me.address.setValue(FW.WALLET_ADDRESS.address);
+            // me.address.setValue(FWUE.WALLET_ADDRESS.address);
             me.message.setValue('');
             me.signature.setValue('');
             me.isSigned = false;
@@ -146,12 +146,12 @@ Ext.define('FW.view.Sign', {
     // Handle signing message and updating signature field
     signMessage: function(){
         var me   = this,
-            addr = FW.WALLET_ADDRESS.address,
+            addr = FWUE.WALLET_ADDRESS.address,
             mesg = me.message.getValue();
         if(!mesg){
             Ext.Msg.alert(null,'You must enter a message to sign');
         } else {
-            var signature = me.main.signMessage(FW.WALLET_NETWORK, addr, mesg);
+            var signature = me.main.signMessage(FWUE.WALLET_NETWORK, addr, mesg);
             me.signature.setValue(signature);
             me.isSigned = true;
         }
@@ -162,7 +162,7 @@ Ext.define('FW.view.Sign', {
                 txt = '';
         if(me.isSigned){
             txt += 'Message : ' + me.message.getValue() + "\n";
-            txt += 'Address : ' + FW.WALLET_ADDRESS.address + "\n";
+            txt += 'Address : ' + FWUE.WALLET_ADDRESS.address + "\n";
             txt += 'Signature : ' + me.signature.getValue() + "\n";
         }
         return txt;

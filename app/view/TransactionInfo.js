@@ -4,14 +4,14 @@
  * Displays transaction information
  */
  
- Ext.define('FW.view.TransactionInfo', {
+ Ext.define('FWUE.view.TransactionInfo', {
     extend: 'Ext.Container',
     xtype: 'fw-transactioninfo',
 
     requires:[
         'Ext.Img',
-        'FW.view.phone.TransactionInfo',
-        'FW.view.tablet.TransactionInfo'
+        'FWUE.view.phone.TransactionInfo',
+        'FWUE.view.tablet.TransactionInfo'
     ],
 
     config: {
@@ -23,9 +23,9 @@
     initialize: function(){
         var me = this;
         // Setup some aliases
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         // Add view based on device type
-        me.add({ xclass:'FW.view.' + me.main.deviceType + '.TransactionInfo' });
+        me.add({ xclass:'FWUE.view.' + me.main.deviceType + '.TransactionInfo' });
         // Now that we have added the correct view, setup some aliases to various components
         me.tb          = me.down('fw-toptoolbar');
         me.image       = me.down('[itemId=image]');
@@ -216,7 +216,7 @@
             indicator: true
         });
         if(data.asset=='BTC'){
-            var net  = (FW.WALLET_NETWORK==2) ? '/testnet' : '',
+            var net  = (FWUE.WALLET_NETWORK==2) ? '/testnet' : '',
                 url  = 'https://blockstream.info' + net + '/api/tx/' + data.hash,
                 href = 'https://blockstream.info' + net + '/tx/' + data.hash;
             // Request transaction information from blockstream
@@ -242,8 +242,8 @@
                     }
                 },
                 failure: function(o){
-                    var net  = (FW.WALLET_NETWORK==2) ? 'test3' : 'main',
-                        net2 = (FW.WALLET_NETWORK==2) ? 'btc-testnet' : 'btc',
+                    var net  = (FWUE.WALLET_NETWORK==2) ? 'test3' : 'main',
+                        net2 = (FWUE.WALLET_NETWORK==2) ? 'btc-testnet' : 'btc',
                         url  = 'https://api.blockcypher.com/v1/btc/' + net + '/txs/' + data.hash,
                         href = 'https://live.blockcypher.com/' + net2 + '/tx/' + data.hash
                     // Request transaction information from blockstream
@@ -273,7 +273,7 @@
             });
         } else {
             // Handle requesting transaction info from xchain.io API
-            var host = (FW.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
+            var host = (FWUE.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
             me.main.ajaxRequest({
                 url: 'https://' + host + '/api/tx/' + data.hash,
                 // Success function called when we receive a success response

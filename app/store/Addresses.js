@@ -1,12 +1,12 @@
 /*
  * Addresses.js - Store 
  */
-Ext.define('FW.store.Addresses', {
+Ext.define('FWUE.store.Addresses', {
     extend: 'Ext.data.Store',
     requires:['Ext.data.proxy.LocalStorage'],
 
     config: {
-        model: 'FW.model.Addresses',
+        model: 'FWUE.model.Addresses',
         // storeId: 'Addresses',
         autoLoad: true,
         autoSync: true,

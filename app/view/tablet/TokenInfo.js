@@ -3,7 +3,7 @@
  * 
  * Display info about specific token or currency on tablet
  */
- Ext.define('FW.view.tablet.TokenInfo', {
+ Ext.define('FWUE.view.tablet.TokenInfo', {
     extend: 'Ext.Container',
 
     config: {
@@ -126,7 +126,7 @@
                     itemId: 'website',
                     iconCls: 'fa fa-globe',
                     handler: function(btn,url){
-                        FW.app.getController('Main').openUrl(url);
+                        FWUE.app.getController('Main').openUrl(url);
                     }
                 }]
             }]

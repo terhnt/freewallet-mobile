@@ -4,7 +4,7 @@
  * Display broadcast message form
  */
 
-Ext.define('FW.view.Broadcast', {
+Ext.define('FWUE.view.Broadcast', {
     extend: 'Ext.form.Panel',
     
     config: {
@@ -86,7 +86,7 @@ Ext.define('FW.view.Broadcast', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         // me.address   = me.down('[name=address]');
@@ -164,7 +164,7 @@ Ext.define('FW.view.Broadcast', {
                     me.priority.reset();
                 }
             };
-            me.main.cpBroadcast(FW.WALLET_NETWORK, FW.WALLET_ADDRESS.address, vals.message, numeral(vals.value).value(), vals.fee, fee_sat, cb);
+            me.main.cpBroadcast(FWUE.WALLET_NETWORK, FWUE.WALLET_ADDRESS.address, vals.message, numeral(vals.value).value(), vals.fee, fee_sat, cb);
         }
         // Confirm action with user
         Ext.Msg.confirm('Confirm Broadcast', 'Send Broadcast?', function(btn){

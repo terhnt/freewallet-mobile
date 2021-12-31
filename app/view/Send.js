@@ -4,7 +4,7 @@
  * Handle displaying 'Send' form 
  */
 
-Ext.define('FW.view.Send', {
+Ext.define('FWUE.view.Send', {
     extend: 'Ext.form.Panel',
 
     config: {
@@ -130,7 +130,7 @@ Ext.define('FW.view.Send', {
                     iconCls: 'fa fa-qrcode',
                     handler: function(){
                         var view = Ext.getCmp('sendView');
-                        FW.app.getController('Main').scanQRCode(view);
+                        FWUE.app.getController('Main').scanQRCode(view);
                     }
                 },{
                     label: 'Balance',
@@ -219,7 +219,7 @@ Ext.define('FW.view.Send', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         me.image       = me.down('[itemId=image]');
@@ -312,7 +312,7 @@ Ext.define('FW.view.Send', {
     updateBalance: function(asset){
         var me      = this,
             store   = Ext.getStore('Balances'),
-            prefix  = FW.WALLET_ADDRESS.address.substr(0,5);
+            prefix  = FWUE.WALLET_ADDRESS.address.substr(0,5);
             balance = 0,
             values  = false,
             format  = '0,0';
@@ -392,7 +392,7 @@ Ext.define('FW.view.Send', {
             };
             // Convert amount to satoshis
             amt_sat = (/\./.test(vals.available)) ? amt_sat : String(vals.amount).replace(/\,/g,'');
-            me.main.cpSend(FW.WALLET_NETWORK, FW.WALLET_ADDRESS.address, vals.destination, vals.asset, amt_sat, fee_sat, cb);
+            me.main.cpSend(FWUE.WALLET_NETWORK, FWUE.WALLET_ADDRESS.address, vals.destination, vals.asset, amt_sat, fee_sat, cb);
         }
         // Confirm action with user
         var asset = (me.tokenInfo.asset_longname && me.tokenInfo.asset_longname!='') ? me.tokenInfo.asset_longname : me.tokenInfo.asset;

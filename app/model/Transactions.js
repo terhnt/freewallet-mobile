@@ -1,7 +1,7 @@
 /*
  * Transactions.js - Model
  */
-Ext.define('FW.model.Transactions', {
+Ext.define('FWUE.model.Transactions', {
     extend: 'Ext.data.Model',
     config: {
         fields: [

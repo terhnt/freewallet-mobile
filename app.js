@@ -11,18 +11,18 @@
 */
 
 Ext.application({
-    name: 'FW',
+    name: FWUE,
 
     requires: [
         'Ext.device.Device',
         'Ext.MessageBox',
         'Ext.device.Device',
-        'FW.ux.AccordionList',
-        'FW.ux.AccordionListItem',
+        'FWUE.ux.AccordionList',
+        'FWUE.ux.AccordionListItem',
         'Ext.field.Spinner',
-        'FW.view.field.Action',
-        'FW.view.field.Spinner',
-        'FW.view.field.Select'
+        'FWUE.view.field.Action',
+        'FWUE.view.field.Spinner',
+        'FWUE.view.field.Select'
     ],
 
     controllers: [
@@ -103,7 +103,7 @@ Ext.application({
     },
 
     onUpdated: function() {
-        FW.app.getController('Main').clearAppCache();
+        FWUE.app.getController('Main').clearAppCache();
         Ext.Msg.confirm(
             "Application Update",
             "This application has just successfully been updated to the latest version. Reload now?",

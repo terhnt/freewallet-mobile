@@ -3,7 +3,7 @@
  * 
  * Handle defining tablet profile and any phone-specific views
  */
- Ext.define('FW.profile.Tablet', {
+ Ext.define('FWUE.profile.Tablet', {
     extend: 'Ext.app.Profile',
 
     config: {

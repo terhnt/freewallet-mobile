@@ -1,7 +1,7 @@
 /*
  * Addresses.js - Model
  */
-Ext.define('FW.model.Addresses', {
+Ext.define('FWUE.model.Addresses', {
     extend: 'Ext.data.Model',
     config: {
         fields: [

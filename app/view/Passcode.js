@@ -4,7 +4,7 @@
  * Handles displaying a numeric keypad to collect a passcode
  */
 
-Ext.define('FW.view.Passcode', {
+Ext.define('FWUE.view.Passcode', {
     extend: 'Ext.Panel',
     requires: [
         'Ext.MessageBox',

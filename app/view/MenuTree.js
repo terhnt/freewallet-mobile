@@ -4,8 +4,8 @@
  * Display a menu list with collapsible folders
  */
 
-Ext.define('FW.view.MenuTree', {
-    extend: 'FW.ux.AccordionList',
+Ext.define('FWUE.view.MenuTree', {
+    extend: 'FWUE.ux.AccordionList',
     xtype: 'fw-menutree',
     requires:[
         'Ext.data.TreeStore'
@@ -41,7 +41,7 @@ Ext.define('FW.view.MenuTree', {
         if(cfg.store)
             me.setStore(cfg.store);
         me.vp   = Ext.Viewport;
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.on('leafitemtap', me.onLeafItemTap, me);
         me.callParent();
     },

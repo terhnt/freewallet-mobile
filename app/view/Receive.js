@@ -4,7 +4,7 @@
  * Handle displaying a scannable QRCode
  */
 
-Ext.define('FW.view.Receive', {
+Ext.define('FWUE.view.Receive', {
     extend: 'Ext.form.Panel',
     
     config: {
@@ -116,7 +116,7 @@ Ext.define('FW.view.Receive', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         me.address    = me.down('[name=address]');
@@ -140,7 +140,7 @@ Ext.define('FW.view.Receive', {
             me.tb.backBtn.hide();
         }
         if(cfg.reset){
-            me.address.setValue(FW.WALLET_ADDRESS.address);
+            me.address.setValue(FWUE.WALLET_ADDRESS.address);
             me.amount.reset();
             me.asset.reset();
         }
@@ -179,7 +179,7 @@ Ext.define('FW.view.Receive', {
     updateAmountField: function(asset){
         var me      = this,
             store   = Ext.getStore('Balances'),
-            prefix  = FW.WALLET_ADDRESS.address.substr(0,5);
+            prefix  = FWUE.WALLET_ADDRESS.address.substr(0,5);
             balance = 0;
         // Find balance in store
         store.each(function(item){

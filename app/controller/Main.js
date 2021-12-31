@@ -3,7 +3,7 @@
  * 
  * Defines most of the common functions used throughout the app
  */
-Ext.define('FW.controller.Main', {
+Ext.define('FWUE.controller.Main', {
     extend: 'Ext.app.Controller',
     requires: [
         'Ext.MessageBox',
@@ -19,25 +19,25 @@ Ext.define('FW.controller.Main', {
             pass = sm.getItem('passcode');
         // Set the app Version so that we know exactly what version a user is running
         // We pass this value on login and on order uploads so server can tweak data based on version if needed
-        FW.APP_VERSION="0.1.9"
+        FWUE.APP_VERSION="0.1.9"
         // Setup alias to counterparty controller
-        me.counterparty   = FW.app.getController('Counterparty');
+        me.counterparty   = FWUE.app.getController('Counterparty');
         // Setup flag to indicate if we are running as a native app.
         me.isNative = (typeof cordova === 'undefined') ? false : true;
         // Setup alias to device type 
         me.deviceType = me.getDeviceType();
         // Initalize some runtime values 
-        FW.PASSCODE       = 0000;                           // Default passcode used to encrypt wallet
-        FW.WALLET_HEX     = null;                           // HD wallet Hex key
-        FW.WALLET_KEYS    = {};                             // Object containing of address/private keys
-        FW.WALLET_NETWORK = sm.getItem('network') || 1;     // (1=Mainnet, 2=Testnet)
-        FW.WALLET_PREFIX  = sm.getItem('prefix')  || null;  // 4-char wallet hex prefix (used to quickly find addresses associated with this wallet in datastore)
-        FW.WALLET_ADDRESS = sm.getItem('address') || null;  // Current wallet address info
-        FW.TOUCHID        = sm.getItem('touchid') || false; // TouchID Authentication enabled (iOS 8+)
-        FW.NETWORK_INFO   = {};                             // latest network information (price, fees, unconfirmed tx, etc)
-        FW.API_KEYS       = {};                             // Placeholder for any API keys
+        FWUE.PASSCODE       = 0000;                           // Default passcode used to encrypt wallet
+        FWUE.WALLET_HEX     = null;                           // HD wallet Hex key
+        FWUE.WALLET_KEYS    = {};                             // Object containing of address/private keys
+        FWUE.WALLET_NETWORK = sm.getItem('network') || 1;     // (1=Mainnet, 2=Testnet)
+        FWUE.WALLET_PREFIX  = sm.getItem('prefix')  || null;  // 4-char wallet hex prefix (used to quickly find addresses associated with this wallet in datastore)
+        FWUE.WALLET_ADDRESS = sm.getItem('address') || null;  // Current wallet address info
+        FWUE.TOUCHID        = sm.getItem('touchid') || false; // TouchID Authentication enabled (iOS 8+)
+        FWUE.NETWORK_INFO   = {};                             // latest network information (price, fees, unconfirmed tx, etc)
+        FWUE.API_KEYS       = {};                             // Placeholder for any API keys
         // Define default server/host settings
-        FW.SERVER_INFO    = {
+        FWUE.SERVER_INFO    = {
             mainnet: {
                 cpHost: 'public.coindaddy.io',          // Counterparty Host
                 cpPort: 4001,                           // Counterparty Port
@@ -55,7 +55,7 @@ Ext.define('FW.controller.Main', {
         };
         // Define default miners fees
         var std = 0.0001
-        FW.MINER_FEES = {
+        FWUE.MINER_FEES = {
             standard: std,
             medium: std * 2,
             fast: std * 5
@@ -65,29 +65,29 @@ Ext.define('FW.controller.Main', {
         if(serverInfo){
             var o = Ext.decode(serverInfo);
             if(o)
-                FW.SERVER_INFO = o;
+                FWUE.SERVER_INFO = o;
         }
         // Detect if we have a wallet
         if(wall){
             // Define function to run once we have successfully authenticated
             var successFn = function(pass){
                 if(pass)
-                    FW.WALLET_PASSCODE = pass;
+                    FWUE.WALLET_PASSCODE = pass;
                 me.decryptWallet();
-                me.setWalletNetwork(FW.WALLET_NETWORK);
-                me.setWalletAddress(FW.WALLET_ADDRESS, true);
+                me.setWalletNetwork(FWUE.WALLET_NETWORK);
+                me.setWalletAddress(FWUE.WALLET_ADDRESS, true);
                 me.showMainView();
                 // Load network info every 10 minutes
                 var network  = sm.getItem('networkInfo'),
                     tstamp   = sm.getItem('networkInfoUpdated'),
                     interval = 600000; // 10 minutes 
                 if(network)
-                    FW.NETWORK_INFO = Ext.decode(network);
+                    FWUE.NETWORK_INFO = Ext.decode(network);
                 // Parse in last known network fees
-                if(FW.NETWORK_INFO.fee_info){
-                    var o = FW.NETWORK_INFO.fee_info;
-                    FW.MINER_FEES.medium = o.low_priority;
-                    FW.MINER_FEES.fast   = o.optimal;
+                if(FWUE.NETWORK_INFO.fee_info){
+                    var o = FWUE.NETWORK_INFO.fee_info;
+                    FWUE.MINER_FEES.medium = o.low_priority;
+                    FWUE.MINER_FEES.fast   = o.optimal;
                 }
                 // Refresh if we have no network data, or it is older than interval
                 if(!tstamp || (tstamp && (parseInt(tstamp)+interval) < Date.now()))
@@ -97,7 +97,7 @@ Ext.define('FW.controller.Main', {
                 // Handle processing any scanned data after 1 second
                 Ext.defer(function(){ me.processLaunchData(); }, 1000);
             }
-            if(FW.TOUCHID && me.isNative){
+            if(FWUE.TOUCHID && me.isNative){
                 // Handle Touch ID authentication
                 me.authenticateTouchID(successFn, null, 'Please scan your fingerprint', true);
             } else if(pass){
@@ -116,12 +116,12 @@ Ext.define('FW.controller.Main', {
     // Handle processing any data that was passed at launch
     processLaunchData: function(){
         var me   = this,
-            data = FW.LAUNCH_DATA;
+            data = FWUE.LAUNCH_DATA;
         // Only proceed if we have a decrypted wallet
-        if(FW.WALLET_HEX && data){
+        if(FWUE.WALLET_HEX && data){
             var o = me.getScannedData(String(data));
             me.processQRCodeScan(o); // Treat input as a scanned QR Code
-            FW.LAUNCH_DATA = false;  // Reset data so it is gone on next check
+            FWUE.LAUNCH_DATA = false;  // Reset data so it is gone on next check
         }
     },
 
@@ -200,15 +200,15 @@ Ext.define('FW.controller.Main', {
 
 
     // Setup some alias functions for the various views we want to display
-    showWelcomeView:      function(){ this.showView('welcomeView','FW.view.Welcome');  },
-    showMainView:         function(){ this.showView('mainView','FW.view.Main'); },
-    showAddressListView:  function(){ this.showView('addressList','FW.view.AddressList'); },
-    showQRCodeView:       function(cfg){ this.showView('qrcodeView','FW.view.QRCode', cfg); },
-    showScanQRCodeView:   function(cfg){ this.showView(null,'FW.view.Scan',cfg); },
-    showPasscodeView:     function(cfg){ this.showView('passcodeView','FW.view.Passcode', cfg); },
-    showPassphraseView:   function(cfg){ this.showView('passphraseView','FW.view.Passphrase', cfg); },
-    showPrivateKeyView:   function(cfg){ this.showView('privateKeyView','FW.view.PrivateKey', cfg); },
-    showCallbackView:     function(cfg){ this.showView('callbackView','FW.view.Callback', cfg); },
+    showWelcomeView:      function(){ this.showView('welcomeView','FWUE.view.Welcome');  },
+    showMainView:         function(){ this.showView('mainView','FWUE.view.Main'); },
+    showAddressListView:  function(){ this.showView('addressList','FWUE.view.AddressList'); },
+    showQRCodeView:       function(cfg){ this.showView('qrcodeView','FWUE.view.QRCode', cfg); },
+    showScanQRCodeView:   function(cfg){ this.showView(null,'FWUE.view.Scan',cfg); },
+    showPasscodeView:     function(cfg){ this.showView('passcodeView','FWUE.view.Passcode', cfg); },
+    showPassphraseView:   function(cfg){ this.showView('passphraseView','FWUE.view.Passphrase', cfg); },
+    showPrivateKeyView:   function(cfg){ this.showView('privateKeyView','FWUE.view.PrivateKey', cfg); },
+    showCallbackView:     function(cfg){ this.showView('callbackView','FWUE.view.Callback', cfg); },
 
     // Handle showing a specifc tool
     showTool: function(tool,cfg){
@@ -256,7 +256,7 @@ Ext.define('FW.controller.Main', {
         var p  = m.toWords().toString().replace(/,/gi, " "),
             h  = m.toHex();
         // Save the wallet hex so we can use when adding the wallet addresses
-        FW.WALLET_HEX = h.toString();
+        FWUE.WALLET_HEX = h.toString();
         // Generate ARC4-based PRNG that is autoseeded using the
         // current time, dom state, and other accumulated local entropy.
         // var seed = Math.seedrandom();
@@ -265,13 +265,13 @@ Ext.define('FW.controller.Main', {
         // Encrypt the wallet and save it to disk so we can load on next run
         me.encryptWallet();
         // Set the wallet prefix to the first 5 chars of the hex
-        FW.WALLET_PREFIX  = String(h.substr(0,5));
-        sm.setItem('prefix', FW.WALLET_PREFIX);
+        FWUE.WALLET_PREFIX  = String(h.substr(0,5));
+        sm.setItem('prefix', FWUE.WALLET_PREFIX);
         // Generate some wallet addresses for use
         me.addWalletAddress(10, 1, false); // Mainnet
         me.addWalletAddress(10, 2, false); // Testnet
         // Set wallet address to the first new address
-        var addr = me.getFirstWalletAddress(FW.WALLET_NETWORK);
+        var addr = me.getFirstWalletAddress(FWUE.WALLET_NETWORK);
         if(addr)
             me.setWalletAddress(addr, true);
         // Handle processing the callback
@@ -283,7 +283,7 @@ Ext.define('FW.controller.Main', {
     // Handle displaying the current wallet passphrase
     showWalletPassphrase: function(){
         var me = this,
-            m  = Mnemonic.fromHex(FW.WALLET_HEX),
+            m  = Mnemonic.fromHex(FWUE.WALLET_HEX),
             p  = m.toWords().toString().replace(/,/gi, " ");
         me.showPassphraseView({ phrase: p });
     },
@@ -291,7 +291,7 @@ Ext.define('FW.controller.Main', {
     // Handle displaying the current wallet passphrase
     showPrivateKey: function(){
         var me = this;
-        var privkey = me.getPrivateKey(FW.WALLET_NETWORK, FW.WALLET_ADDRESS.address);
+        var privkey = me.getPrivateKey(FWUE.WALLET_NETWORK, FWUE.WALLET_ADDRESS.address);
         me.showPrivateKeyView({ privkey: privkey });
     },
 
@@ -301,10 +301,10 @@ Ext.define('FW.controller.Main', {
         var me  = this,
             sm  = localStorage;
         // Encrypt the wallet seed
-        var enc = CryptoJS.AES.encrypt(FW.WALLET_HEX, String(FW.PASSCODE)).toString();
+        var enc = CryptoJS.AES.encrypt(FWUE.WALLET_HEX, String(FWUE.PASSCODE)).toString();
         sm.setItem('wallet', enc);
         // Encrypt any imported private keys
-        var enc = CryptoJS.AES.encrypt(Ext.encode(FW.WALLET_KEYS), String(FW.PASSCODE)).toString();
+        var enc = CryptoJS.AES.encrypt(Ext.encode(FWUE.WALLET_KEYS), String(FWUE.PASSCODE)).toString();
         sm.setItem('privkey', enc);
     },
 
@@ -318,13 +318,13 @@ Ext.define('FW.controller.Main', {
             p  = sm.getItem('privkey');
         // Decrypt wallet
         if(w){
-            var dec = CryptoJS.AES.decrypt(w, String(FW.PASSCODE)).toString(CryptoJS.enc.Utf8);
-            FW.WALLET_HEX = dec;
+            var dec = CryptoJS.AES.decrypt(w, String(FWUE.PASSCODE)).toString(CryptoJS.enc.Utf8);
+            FWUE.WALLET_HEX = dec;
         }
         // Decrypt any saved/imported private keys
         if(p){
-            var dec = CryptoJS.AES.decrypt(p, String(FW.PASSCODE)).toString(CryptoJS.enc.Utf8);
-            FW.WALLET_KEYS = Ext.decode(dec);
+            var dec = CryptoJS.AES.decrypt(p, String(FWUE.PASSCODE)).toString(CryptoJS.enc.Utf8);
+            FWUE.WALLET_KEYS = Ext.decode(dec);
         }
     },
 
@@ -337,7 +337,7 @@ Ext.define('FW.controller.Main', {
             address = false,
             bc      = bitcore,
             store   = Ext.getStore('Addresses'),
-            n       = (FW.WALLET_NETWORK==2) ? 'testnet' : 'mainnet',
+            n       = (FWUE.WALLET_NETWORK==2) ? 'testnet' : 'mainnet',
             force   = (force) ? true : false,
             net     = bc.Networks[n];
         try {
@@ -350,10 +350,10 @@ Ext.define('FW.controller.Main', {
         // Add wallet to address
         if(address){
             var rec = store.add({
-                id: FW.WALLET_PREFIX + '-' + FW.WALLET_NETWORK + '-' + String(address).substring(0,4),
+                id: FWUE.WALLET_PREFIX + '-' + FWUE.WALLET_NETWORK + '-' + String(address).substring(0,4),
                 index: 9999,
-                prefix: FW.WALLET_PREFIX,
-                network: FW.WALLET_NETWORK,
+                prefix: FWUE.WALLET_PREFIX,
+                network: FWUE.WALLET_NETWORK,
                 address: address,
                 label: 'Imported Address'
             });
@@ -362,9 +362,9 @@ Ext.define('FW.controller.Main', {
             me.saveStore('Addresses');
         }
         // Save data in localStorage
-        if(FW.WALLET_KEYS){
-            console.log('FW.WALLET_KEYS=',FW.WALLET_KEYS);
-            FW.WALLET_KEYS[address] = key;
+        if(FWUE.WALLET_KEYS){
+            console.log('FWUE.WALLET_KEYS=',FWUE.WALLET_KEYS);
+            FWUE.WALLET_KEYS[address] = key;
             me.encryptWallet();
         }
         // Notify user that address was added
@@ -384,12 +384,12 @@ Ext.define('FW.controller.Main', {
     addWalletAddress: function(count, network, force, alert){
         var me       = this,
             addr     = null,
-            network  = (network) ? network : FW.WALLET_NETWORK,
+            network  = (network) ? network : FWUE.WALLET_NETWORK,
             bc       = bitcore,
             n        = (network==2) ? 'testnet' : 'mainnet',
             force    = (force) ? true : false,
             net      = bc.Networks[n],
-            key      = bc.HDPrivateKey.fromSeed(FW.WALLET_HEX, net);   // HD Private key object
+            key      = bc.HDPrivateKey.fromSeed(FWUE.WALLET_HEX, net);   // HD Private key object
             count    = (typeof count === 'number') ? count : 1,
             store    = Ext.getStore('Addresses'),
             total    = 0;
@@ -415,9 +415,9 @@ Ext.define('FW.controller.Main', {
                 if(force)
                     total++;
                 var rec = store.add({
-                    id: FW.WALLET_PREFIX + '-' + network + '-' + (i+1),
+                    id: FWUE.WALLET_PREFIX + '-' + network + '-' + (i+1),
                     index: i,
-                    prefix: FW.WALLET_PREFIX,
+                    prefix: FWUE.WALLET_PREFIX,
                     network: network,
                     address: address,
                     label: 'Address #' + (i+1)
@@ -441,7 +441,7 @@ Ext.define('FW.controller.Main', {
             sm = localStorage,
             net = (network==2) ? 'testnet' : 'mainnet';
         // Update wallet network san d
-        FW.WALLET_NETWORK = network;
+        FWUE.WALLET_NETWORK = network;
         sm.setItem('network',  network);
         // Change change window.NETWORK so thinks work nicely in util.bitcore.js
         window.NETWORK = bitcore.Networks[net];
@@ -477,7 +477,7 @@ Ext.define('FW.controller.Main', {
             // Save current address info to statemanager
             sm.setItem('address',info.address)
             // Save the full wallet info
-            FW.WALLET_ADDRESS = info;
+            FWUE.WALLET_ADDRESS = info;
             // Try to lookup settings panel and set/update address and label
             var cmp = Ext.getCmp('settingsPanel');
             if(cmp){
@@ -507,14 +507,14 @@ Ext.define('FW.controller.Main', {
         var me    = this,
             sm    = localStorage,
             store = Ext.getStore('Addresses'),
-            addr  = (addr) ? addr : FW.WALLET_ADDRESS.address;
+            addr  = (addr) ? addr : FWUE.WALLET_ADDRESS.address;
         // Remove any filters on the store so we are dealing with all the data
         store.clearFilter();
         // Locate address and update stored label value
         store.each(function(rec){
             var o = rec.data;
-            if(o.network==FW.WALLET_NETWORK && o.prefix==FW.WALLET_PREFIX && o.address==addr){
-                FW.WALLET_ADDRESS.label = val;
+            if(o.network==FWUE.WALLET_NETWORK && o.prefix==FWUE.WALLET_PREFIX && o.address==addr){
+                FWUE.WALLET_ADDRESS.label = val;
                 o.label = val;
                 rec.setDirty(true);
                 return false;
@@ -542,7 +542,7 @@ Ext.define('FW.controller.Main', {
         // Locate the first address
         store.each(function(rec){
             var o = rec.data;
-            if(o.network==network && o.prefix==FW.WALLET_PREFIX && o.index==0){
+            if(o.network==network && o.prefix==FWUE.WALLET_PREFIX && o.index==0){
                 addr = o.address;
                 return false;
             }
@@ -554,7 +554,7 @@ Ext.define('FW.controller.Main', {
     // Handle getting a price for a given currency/type
     getCurrencyPrice: function(currency, type){
         var value = false;
-        Ext.each(FW.NETWORK_INFO.currency_info, function(item){
+        Ext.each(FWUE.NETWORK_INFO.currency_info, function(item){
             if(item.id==currency){
                 if(type=='usd')
                     value = item.price_usd;
@@ -602,25 +602,25 @@ Ext.define('FW.controller.Main', {
     // Handle getting BTC balance (in satoshis) from various sources
     getBTCBalance: function(address, source, callback){
         var me   = this,
-            addr = (address) ? address : FW.WALLET_ADDRESS,
+            addr = (address) ? address : FWUE.WALLET_ADDRESS,
             src  = source,
             bal  = false,
             url  = false; // BTC Balance or false for failure
         // BlockCypher
         if(source=='blockcypher'){
-            var net = (FW.WALLET_NETWORK==2) ? 'test3' : 'main',
+            var net = (FWUE.WALLET_NETWORK==2) ? 'test3' : 'main',
                 url = 'https://api.blockcypher.com/v1/btc/' + net + '/addrs/' + addr + '/balance';
         // Blockstream
         } else if(source=='blockstream'){
-            var net = (FW.WALLET_NETWORK==2) ? '/testnet' : '',
+            var net = (FWUE.WALLET_NETWORK==2) ? '/testnet' : '',
                 url = 'https://blockstream.info' + net + '/api/address/' + addr;
         // Chain.so
         } else if(source=='chain.so'){
-            var net = (FW.WALLET_NETWORK==2) ? 'BTCTEST' : 'BTC',
+            var net = (FWUE.WALLET_NETWORK==2) ? 'BTCTEST' : 'BTC',
                 url = 'https://chain.so/api/v2/get_address_balance/' + net + '/' + addr;
         // CoinDaddy indexd
         } else if(source=='indexd'){
-            var net = (FW.WALLET_NETWORK==2) ? 18432 : 8432,
+            var net = (FWUE.WALLET_NETWORK==2) ? 18432 : 8432,
                 url  = 'http://public.coindaddy.io:' + net + '/a/' + addr + '/balance';
         } else {
             callback(bal);
@@ -682,21 +682,21 @@ Ext.define('FW.controller.Main', {
     getBTCHistory: function(address, source, callback){
         // console.log('getBTCHistory address,source=',address,source);
         var me   = this,
-            addr = (address) ? address : FW.WALLET_ADDRESS,
+            addr = (address) ? address : FWUE.WALLET_ADDRESS,
             src  = source,
             data = false,
             url  = false; // BTC Balance or false for failure
         // BlockCypher
         if(source=='blockcypher'){
-            var net = (FW.WALLET_NETWORK==2) ? 'test3' : 'main',
+            var net = (FWUE.WALLET_NETWORK==2) ? 'test3' : 'main',
                 url = 'https://api.blockcypher.com/v1/btc/' + net + '/addrs/' + addr + '/full?limit=50';
         // Blockstream
         } else if(source=='blockstream'){
-            var net = (FW.WALLET_NETWORK==2) ? '/testnet' : '',
+            var net = (FWUE.WALLET_NETWORK==2) ? '/testnet' : '',
                 url = 'https://blockstream.info' + net + '/api/address/' + addr + '/txs';
         // Chain.so
         } else if(source=='chain.so'){
-            var net = (FW.WALLET_NETWORK==2) ? 'BTCTEST' : 'BTC',
+            var net = (FWUE.WALLET_NETWORK==2) ? 'BTCTEST' : 'BTC',
                 url = 'https://chain.so/api/v2/get_tx_received/' + net + '/' + addr;
         // CoinDaddy indexd
         } else {
@@ -826,7 +826,7 @@ Ext.define('FW.controller.Main', {
             doneCb();
         });
         // Get Asset balances
-        var host = (FW.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
+        var host = (FWUE.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
         me.ajaxRequest({
             url: 'https://' + host + '/api/balances/' + address,
             success: function(o){
@@ -861,7 +861,7 @@ Ext.define('FW.controller.Main', {
     updateAddressBalance: function(address, type, asset, asset_longname, quantity, estimated_value){
         // console.log('updateAddressBalance address, type, asset, asset_longname, quantity, estimated_value=',address, type, asset, asset_longname, quantity, estimated_value);
         var me     = this,
-            addr   = (address) ? address : FW.WALLET_ADDRESS,
+            addr   = (address) ? address : FWUE.WALLET_ADDRESS,
             prefix = addr.substr(0,5),
             store  = Ext.getStore('Balances');
             record = store.add({
@@ -942,7 +942,7 @@ Ext.define('FW.controller.Main', {
     promptAddressPrivkey: function(callback){
         var me  = this,
             bc  = bitcore,
-            net = (FW.WALLET_NETWORK==2) ? 'testnet' : 'mainnet';
+            net = (FWUE.WALLET_NETWORK==2) ? 'testnet' : 'mainnet';
         Ext.Msg.show({
             message:'Please enter your<br/>unencrypted private key',
             multiLine: true,
@@ -1018,8 +1018,8 @@ Ext.define('FW.controller.Main', {
         var me = this,
             sm = localStorage;
         if(code){
-            FW.WALLET_PASSCODE = code;
-            var enc = CryptoJS.AES.encrypt(String(FW.WALLET_PASSCODE), String(FW.WALLET_PASSCODE)).toString();
+            FWUE.WALLET_PASSCODE = code;
+            var enc = CryptoJS.AES.encrypt(String(FWUE.WALLET_PASSCODE), String(FWUE.WALLET_PASSCODE)).toString();
             sm.setItem('passcode', enc);
         }
     },
@@ -1064,7 +1064,7 @@ Ext.define('FW.controller.Main', {
         });
         // Get Counterparty transaction history (includes pending mempool transactions)
         var types = ['history','mempool'],
-            host  = (FW.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
+            host  = (FWUE.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
         types.forEach(function(type){
             me.ajaxRequest({
                 url: 'https://' + host + '/api/' + type + '/' + address,
@@ -1108,7 +1108,7 @@ Ext.define('FW.controller.Main', {
     updateTransactionHistory: function(address, tx, type, asset, asset_longname, quantity, timestamp){
         // console.log('updateTransactionHistory address, tx, type, asset, asset_longname, amount, timestamp=', address, tx, type, asset, asset_longname, quantity, timestamp);
         var me     = this,
-            addr   = (address) ? address : FW.WALLET_ADDRESS.address,
+            addr   = (address) ? address : FWUE.WALLET_ADDRESS.address,
             store  = Ext.getStore('Transactions'),
             time   = (timestamp) ? timestamp : 0,
             record = {};
@@ -1149,7 +1149,7 @@ Ext.define('FW.controller.Main', {
             side = (side) ? side : 'right';
         // Handle creating the menuTree if we don't already have one
         if(!me.menu)
-            me.menu = Ext.create('FW.view.MainMenu');
+            me.menu = Ext.create('FWUE.view.MainMenu');
         // Set the sidemenu to this menu, and show the menu
         vp.setMenu(me.menu, { side:side, cover: true });
         vp.showMenu(side);
@@ -1195,12 +1195,12 @@ Ext.define('FW.controller.Main', {
             bc    = bitcore,
             n     = (network==2) ? 'testnet' : 'mainnet',
             net   = bc.Networks[n],
-            key   = bc.HDPrivateKey.fromSeed(FW.WALLET_HEX, net),   // HD Private key object
+            key   = bc.HDPrivateKey.fromSeed(FWUE.WALLET_HEX, net),   // HD Private key object
             store = Ext.getStore('Addresses'),
             priv  = false,
             index = false;
         // Check any imported/saved private keys
-        var priv = FW.WALLET_KEYS[address];
+        var priv = FWUE.WALLET_KEYS[address];
         // Loop through HD addresses trying to find private key
         if(!priv){
             // Try to lookup the address index in store
@@ -1312,12 +1312,12 @@ Ext.define('FW.controller.Main', {
             if(o.action=='sign'){
                 if(o.callback){
                     // Use given address or default to current address
-                    var addr = (o.address) ? o.address : FW.WALLET_ADDRESS.address,
+                    var addr = (o.address) ? o.address : FWUE.WALLET_ADDRESS.address,
                         host = me.getUrlHostname(o.callback),
-                        key  = me.getPrivateKey(FW.WALLET_NETWORK, addr);
+                        key  = me.getPrivateKey(FWUE.WALLET_NETWORK, addr);
                     // Only proceed if we were able to get the key for the address
                     if(key){
-                        var sig = me.signMessage(FW.WALLET_NETWORK, addr, o.message);
+                        var sig = me.signMessage(FWUE.WALLET_NETWORK, addr, o.message);
                         if(sig){
                             o.address   = addr;
                             o.signature = sig;
@@ -1490,7 +1490,7 @@ Ext.define('FW.controller.Main', {
             cmp = Ext.getCmp('settingsPanel');
         cmp.toggleField(cmp.passcode, 0);
         sm.removeItem('passcode');
-        FW.WALLET_PASSCODE = 0000;
+        FWUE.WALLET_PASSCODE = 0000;
         me.encryptWallet();
     },
 
@@ -1502,7 +1502,7 @@ Ext.define('FW.controller.Main', {
             cmp = Ext.getCmp('settingsPanel');
         cmp.toggleField(cmp.touchid, 0);
         sm.removeItem('touchid');
-        FW.TOUCHID = false;
+        FWUE.TOUCHID = false;
     },
 
 
@@ -1543,7 +1543,7 @@ Ext.define('FW.controller.Main', {
         var successFn = function(){
             cmp.toggleField(cmp.touchid, 1, 'Touch ID enabled');
             sm.setItem('touchid', true);
-            FW.TOUCHID = true;
+            FWUE.TOUCHID = true;
             me.resetPasscode();
         };
         // Define function that disables touchID toggle field
@@ -1611,7 +1611,7 @@ Ext.define('FW.controller.Main', {
     getBalance: function(asset){
         var balances = Ext.getStore('Balances'),
             balance  = 0,
-            prefix   = FW.WALLET_ADDRESS.address.substr(0,5);
+            prefix   = FWUE.WALLET_ADDRESS.address.substr(0,5);
         balances.each(function(item){
             var rec = item.data;
             if(rec.prefix==prefix && rec.asset==asset){
@@ -1646,7 +1646,7 @@ Ext.define('FW.controller.Main', {
     broadcastTransaction: function(network, tx, callback){
         var me  = this,
             net  = (network==2) ? 'BTCTEST' : 'BTC';
-            host = (FW.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io',
+            host = (FWUE.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io',
         // First try to broadcast using the XChain API
         me.ajaxRequest({
             url: 'https://' + host + '/api/send_tx',
@@ -1692,12 +1692,12 @@ Ext.define('FW.controller.Main', {
             method: 'GET',
             success: function(o){
                 if(o && o.currency_info){
-                    FW.NETWORK_INFO = o;
+                    FWUE.NETWORK_INFO = o;
                     // Save info to localStorage so we can preload last known prices on reload
                     sm.setItem('networkInfo',Ext.encode(o));
                     sm.setItem('networkInfoUpdated', Date.now());
                     // Update the miners fee info so we can use it in the transaction
-                    FW.MINER_FEES = Ext.apply(FW.MINER_FEES,{       
+                    FWUE.MINER_FEES = Ext.apply(FWUE.MINER_FEES,{       
                         medium: o.fee_info.low_priority,
                         fast: o.fee_info.optimal
                     });
@@ -1713,7 +1713,7 @@ Ext.define('FW.controller.Main', {
     // Handle requesting information on a given token
     getTokenInfo: function(asset, callback){
         var me   = this,
-            host = (FW.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
+            host = (FWUE.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
         me.ajaxRequest({
             url: 'https://' + host + '/api/asset/' + asset,
             // Success function called when we receive a success response

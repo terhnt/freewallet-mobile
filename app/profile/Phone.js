@@ -3,7 +3,7 @@
  * 
  * Handle defining phone profile and any phone-specific views
  */
- Ext.define('FW.profile.Phone', {
+ Ext.define('FWUE.profile.Phone', {
     extend: 'Ext.app.Profile',
 
     config: {

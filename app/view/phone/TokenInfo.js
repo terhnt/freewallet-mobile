@@ -3,7 +3,7 @@
  * 
  * Display info about specific token on phone
  */
- Ext.define('FW.view.phone.TokenInfo', {
+ Ext.define('FWUE.view.phone.TokenInfo', {
     extend: 'Ext.Container',
 
     config: {
@@ -121,7 +121,7 @@
                     itemId: 'website',
                     iconCls: 'fa fa-globe',
                     handler: function(btn,url){
-                        FW.app.getController('Main').openUrl(url);
+                        FWUE.app.getController('Main').openUrl(url);
                     }
                 }]
             }]

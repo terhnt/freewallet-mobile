@@ -4,14 +4,14 @@
  * Handle displaying information about the token (name, supply, description, etc).
  */
 
- Ext.define('FW.view.TokenInfo', {
+ Ext.define('FWUE.view.TokenInfo', {
     extend: 'Ext.Container',
     xtype: 'fw-tokeninfo',
 
     requires:[
         'Ext.Img',
-        'FW.view.phone.TokenInfo',
-        'FW.view.tablet.TokenInfo'
+        'FWUE.view.phone.TokenInfo',
+        'FWUE.view.tablet.TokenInfo'
     ],
 
     config: {
@@ -23,9 +23,9 @@
     initialize: function(){
         var me = this;
         // Setup some aliases
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         // Add view based on device type
-        me.add({ xclass:'FW.view.' + me.main.deviceType + '.TokenInfo' });
+        me.add({ xclass:'FWUE.view.' + me.main.deviceType + '.TokenInfo' });
         // Now that we have added the correct view, setup some aliases to various components
         me.tb          = me.down('fw-toptoolbar');
         me.image       = me.down('[itemId=image]');

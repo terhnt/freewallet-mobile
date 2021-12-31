@@ -33,14 +33,14 @@ var statics = {
 
 
 // Override the standardized buttons in Ext.MessageBox
-Ext.define('FW.view.MessageBoxOverride', {
+Ext.define('FWUE.view.MessageBoxOverride', {
     override: 'Ext.MessageBox',
     statics: statics
 });
 
 
 // Define custom messagebox component 
-Ext.define('FW.view.MessageBox', {
+Ext.define('FWUE.view.MessageBox', {
     extend: 'Ext.MessageBox',
     singleton: true,
 
@@ -86,7 +86,7 @@ Ext.define('FW.view.MessageBox', {
 }, function(){
     Ext.onSetup(function(){
         // Setup alias so we can just reference Ext.Msg2
-        Ext.Msg2 = FW.view.MessageBox;
+        Ext.Msg2 = FWUE.view.MessageBox;
     });    
 });
 
