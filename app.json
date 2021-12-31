@@ -14,7 +14,7 @@
                     // phonegap.remote.password=mys3cr3tp@ssw0rd
                     "remote": true,
 
-                    "id": "io.freewallet.mobile",
+                    "id": "io.unobtanium.freewallet.mobile",
                     "name": "FreeWallet"
                 }
             }
