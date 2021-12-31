@@ -1,6 +1,6 @@
 /*
  * AddressList.js - View
- * 
+ *
  * Display address list
  */
 
@@ -11,7 +11,7 @@ Ext.define('FWUE.view.AddressList', {
     requires:[
         'Ext.field.Search'
     ],
-    
+
     config: {
         id: 'addressList',
         cls: 'fw-panel fw-addresslist',
@@ -28,7 +28,7 @@ Ext.define('FWUE.view.AddressList', {
                 '<b>{label}</b><br/><i>{address}</i><br/>' +
                 '<table width="300">' +
                 '<tr>' +
-                    '<td class="icon-btc icon-20"></td><td class="fw-addresslist-balance">{[this.getBalance(values, "BTC")]}</td>' +
+                    '<td class="icon-btc icon-20"></td><td class="fw-addresslist-balance">{[this.getBalance(values, "UNO")]}</td>' +
                     '<td class="icon-xcp icon-20"></td><td class="fw-addresslist-balance">{[this.getBalance(values, "XUP")]}</td>' +
                 '</tr>' +
                 '</table>' +
@@ -91,7 +91,7 @@ Ext.define('FWUE.view.AddressList', {
                         cmp.up('fw-addresslist').onListSearch(cmp.getValue());
                     },
                     buffer: 250,
-                    scope: this                                
+                    scope: this
                 }
             }]
         }]
@@ -120,7 +120,7 @@ Ext.define('FWUE.view.AddressList', {
             show: function(){
                 me.onListSearch();
             }
-        });         
+        });
         // Handle applying any background class to the list in the correct place (so docked components don't overlay over background)
         if(cfg.bgCls)
             me.element.down('.x-dock-body').addCls(cfg.bgCls);
@@ -135,7 +135,7 @@ Ext.define('FWUE.view.AddressList', {
             filter = Ext.create('Ext.util.Filter', {
                         filterFn: function(item){
                             var o = item.data;
-                            // Only show addresses for the current wallet 
+                            // Only show addresses for the current wallet
                             if(o.prefix==FWUE.WALLET_PREFIX && o.network==FWUE.WALLET_NETWORK){
                                 if(str){
                                     if(o.address && String(o.address).match(regexp)!=null)
@@ -147,12 +147,12 @@ Ext.define('FWUE.view.AddressList', {
                                 return true;
                             }
                             return false;
-                        }, 
+                        },
                         root: 'data'
                     });
         store.clearFilter();
         store.filter(filter);
-        me.refresh();        
+        me.refresh();
     },
 
 
@@ -185,7 +185,7 @@ Ext.define('FWUE.view.AddressList', {
                                 addr = me.main.addWalletAddress(1,null,true,true);
                             },10);
                         }
-                    });                    
+                    });
                 }
                 if(btn=='import'){
                     var cb = function(address, privkey){

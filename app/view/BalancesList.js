@@ -1,6 +1,6 @@
 /*
  * BalancesList.js - View
- * 
+ *
  * Display list of balances
  */
 
@@ -21,7 +21,7 @@ Ext.define('FWUE.view.BalancesList', {
         itemTpl: new Ext.XTemplate(
             '<div class="fw-balanceslist-item">' +
                 '<div class="fw-balanceslist-icon">' +
-                    '<img src="https://xchain.io/icon/{[this.toUpper(values.asset)]}.png">' + 
+                    '<img src="https://unoparty.xchain.io/icon/{[this.toUpper(values.asset)]}.png">' + 
                 '</div>' +
                 '<div class="fw-balanceslist-info">' +
                     '<div class="fw-balanceslist-currency">{display_name}</div>' +

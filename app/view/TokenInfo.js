@@ -1,6 +1,6 @@
 /*
  * TokenInfo.js - View
- * 
+ *
  * Handle displaying information about the token (name, supply, description, etc).
  */
 
@@ -33,8 +33,8 @@
         me.balance     = me.down('[itemId=balance]');
         me.description = me.down('[itemId=description]');
         me.supply      = me.down('[itemId=supply]');
-        me.xcp         = me.down('[itemId=xcp]');
-        me.btc         = me.down('[itemId=btc]');
+        me.xcp         = me.down('[itemId=xup]');
+        me.btc         = me.down('[itemId=uno]');
         me.usd         = me.down('[itemId=usd]');
         me.divisible   = me.down('[itemId=divisible]');
         me.locked      = me.down('[itemId=locked]');
@@ -55,7 +55,7 @@
             });
         });
         // Handle displaying current address and currency in QRCode
-        me.receiveBtn.on('tap',function(btn){ 
+        me.receiveBtn.on('tap',function(btn){
             me.main.showTool('receive', {
                 reset: true,
                 asset: me.getData().asset
@@ -85,7 +85,7 @@
             me.information.show();
         }
         // Update currency name and image
-        me.image.setSrc('https://xchain.io/icon/' + data.asset.toUpperCase() + '.png');
+        me.image.setSrc('https://unoparty.xchain.io/icon/' + data.asset.toUpperCase() + '.png');
         me.updateData(data);
         // Get the basic currency information
         me.getTokenInfo(data);
@@ -130,7 +130,7 @@
             me.updateData({
                 asset: 'UNO',
                 quantity: data.quantity,
-                supply: '21000000.00000000',
+                supply: '250000.00000000',
                 website: 'http://unobtanium.uno',
                 divisible: true,
                 locked: true,
@@ -138,7 +138,7 @@
                 estimated_value: values
             });
         } else {
-            // Set loading mask on panel to indicate we are loading 
+            // Set loading mask on panel to indicate we are loading
             me.setMasked({
                 xtype: 'loadmask',
                 cls: 'fw-panel',
@@ -153,9 +153,9 @@
                 if(data.asset=='XUP'){
                     o.website = 'https://unoparty.io';
                     o.locked = true;
-                    o.description = 'Unoparty extends Unobtanium in new and powerful ways.';                       
+                    o.description = 'Unoparty extends Unobtanium in new and powerful ways.';
                 }
-                me.updateData(Ext.apply(o,{ 
+                me.updateData(Ext.apply(o,{
                     quantity: data.quantity,
                     asset: data.asset
                 }));
@@ -187,6 +187,6 @@
                 // if(o.image)
                 //     me.image.setSrc(o.image);
             }
-        });            
+        });
     }
 });

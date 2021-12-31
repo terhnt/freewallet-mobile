@@ -1,12 +1,12 @@
 /*
- * Issuance.js - View 
+ * Issuance.js - View
  *
  * Display issuance form
  */
- 
+
 Ext.define('FWUE.view.Issuance', {
     extend: 'Ext.form.Panel',
-    
+
     config: {
         id: 'issuanceView',
         layout: 'vbox',
@@ -114,7 +114,7 @@ Ext.define('FWUE.view.Issuance', {
                             me.description.setValue(desc);
                         }
                     }
-                }]                
+                }]
             },{
                 xtype: 'fw-transactionpriority',
                 margin: '0 0 0 0'
@@ -138,7 +138,7 @@ Ext.define('FWUE.view.Issuance', {
             }]
         }]
     },
-    
+
 
     // Handle initializing the screen
     initialize: function(){
@@ -199,7 +199,7 @@ Ext.define('FWUE.view.Issuance', {
             fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' UNO','')),
             btc_sat = me.main.getSatoshis(btc_bal),
             qty_sat = me.main.getSatoshis(vals.quantity);
-        // Validate the issuance data and display any 
+        // Validate the issuance data and display any
         if(vals.name==''){
             msg = 'You must enter a token name';
         } else if(type==1){
@@ -250,9 +250,9 @@ Ext.define('FWUE.view.Issuance', {
                 }
             };
             me.main.cpIssuance(FWUE.WALLET_NETWORK, FWUE.WALLET_ADDRESS.address, vals.name, vals.description, vals.divisible, qty_sat, null, fee_sat, cb);
-        }        
+        }
         // Make call to xchain API to check if asset already is registered
-        var host = (FWUE.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
+        var host = (FWUE.WALLET_NETWORK==2) ? 'testnet.unoparty.xchain.io' : 'unoparty.xchain.io';
         me.main.ajaxRequest({
             url: 'https://' + host + '/api/asset/' + vals.name,
             success: function(o){

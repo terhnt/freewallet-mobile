@@ -41,7 +41,7 @@ Ext.define('FWUE.view.TransactionsList', {
                     } else if(type=='dividend'){
                         src = 'resources/images/icons/dividend.png';
                     } else if((type=='send'||type=='order'||type=='issuance') && values.asset!='UNO'){
-                        src = 'https://xchain.io/icon/'  + String(values.asset).toUpperCase() + '.png';
+                        src = 'https://unoparty.xchain.io/icon/'  + String(values.asset).toUpperCase() + '.png';
                     }
                     icon = '<img src="' + src + '"/>';
                     return icon;

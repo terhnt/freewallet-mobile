@@ -1,7 +1,7 @@
 /*
- * Send.js - View 
+ * Send.js - View
  *
- * Handle displaying 'Send' form 
+ * Handle displaying 'Send' form
  */
 
 Ext.define('FWUE.view.Send', {
@@ -69,7 +69,7 @@ Ext.define('FWUE.view.Send', {
                             itemTpl: new Ext.XTemplate(
                                 '<div class="fw-pickerlist-item">' +
                                     '<div class="fw-pickerlist-icon">' +
-                                        '<img src="https://xchain.io/icon/{[this.toUpper(values.asset)]}.png">' + 
+                                        '<img src="https://unoparty.xchain.io/icon/{[this.toUpper(values.asset)]}.png">' +
                                     '</div>' +
                                     '<div class="fw-pickerlist-info">' +
                                         '<div class="fw-pickerlist-currency">{display_name}</div>' +
@@ -87,7 +87,7 @@ Ext.define('FWUE.view.Send', {
                             itemTpl: new Ext.XTemplate(
                                 '<div class="fw-pickerlist-item">' +
                                     '<div class="fw-pickerlist-icon">' +
-                                        '<img src="https://xchain.io/icon/{[this.toUpper(values.asset)]}.png" width="35">' + 
+                                        '<img src="https://unoparty.xchain.io/icon/{[this.toUpper(values.asset)]}.png" width="35">' +
                                     '</div>' +
                                     '<div class="fw-pickerlist-info">' +
                                         '<div class="fw-pickerlist-currency">{display_name}</div>' +
@@ -281,8 +281,8 @@ Ext.define('FWUE.view.Send', {
             };
             me.price.enable();
         } else {
-            me.main.getTokenInfo(asset, function(o){ 
-                me.tokenInfo = o; 
+            me.main.getTokenInfo(asset, function(o){
+                me.tokenInfo = o;
                 if(String(o.asset_longname).trim().length)
                     me.asset.setValue(o.asset_longname);
                 // enable/disable price field based on if the asset has any known value
@@ -298,10 +298,10 @@ Ext.define('FWUE.view.Send', {
 
     // Handle updating the image
     updateImage: function(asset){
-        var me  = this, 
+        var me  = this,
             src = 'resources/images/wallet.png';
         if(asset)
-            src = 'https://xchain.io/icon/' + asset.toUpperCase() + '.png';
+            src = 'https://unoparty.xchain.io/icon/' + asset.toUpperCase() + '.png';
         if(asset=='UNO')
             src = 'resources/images/icons/btc.png';
         me.image.setSrc(src);
@@ -407,9 +407,9 @@ Ext.define('FWUE.view.Send', {
     updateForm: function(o){
         var me = this;
         if(o){
-            if(o.asset) 
+            if(o.asset)
                 me.asset.setValue(o.asset);
-            if(o.address) 
+            if(o.address)
                 me.destination.setValue(o.address);
             if(o.amount)
                 me.amount.setValue(numeral(o.amount).value());

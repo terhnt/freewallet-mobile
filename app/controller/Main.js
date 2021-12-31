@@ -664,7 +664,7 @@ Ext.define('FWUE.controller.Main', {
         // BlockCypher
         if(source=='chainz.cryptoid'){
             var net = (FWUE.WALLET_NETWORK==2) ? 'test3' : 'main',
-                url = 'https://chainz.cryptoid.info/uno/api.dws?q=lasttxs&a=' + addr;
+                url = 'https://chainz.cryptoid.info/uno/api.dws?q=lasttxs&a=' + addr; //lasttxs works without address..
         // CoinDaddy indexd
         } else {
             callback(data);
