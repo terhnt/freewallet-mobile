@@ -4,7 +4,7 @@
  * Handles displaying transaction history list
  */
 
-Ext.define('FW.view.TransactionsList', {
+Ext.define('FWUE.view.TransactionsList', {
     extend: 'Ext.dataview.List',
     xtype: 'fw-transactionslist',
 
@@ -33,15 +33,15 @@ Ext.define('FW.view.TransactionsList', {
             {
                 getIcon: function(values){
                     var type = values.type,
-                        src  = 'resources/images/icons/btc.png';
+                        src  = 'resources/images/icons/uno.png';
                     if(type=='bet'){
-                        src = 'resources/images/icons/xcp.png';
+                        src = 'resources/images/icons/xup.png';
                     } else if(type=='broadcast'){
                         src = 'resources/images/icons/broadcast.png';
                     } else if(type=='dividend'){
                         src = 'resources/images/icons/dividend.png';
-                    } else if((type=='send'||type=='order'||type=='issuance') && values.asset!='BTC'){
-                        src = 'https://xchain.io/icon/'  + String(values.asset).toUpperCase() + '.png';
+                    } else if((type=='send'||type=='order'||type=='issuance') && values.asset!='UNO'){
+                        src = 'https://unoparty.xchain.io/icon/'  + String(values.asset).toUpperCase() + '.png';
                     }
                     icon = '<img src="' + src + '"/>';
                     return icon;
@@ -60,20 +60,20 @@ Ext.define('FW.view.TransactionsList', {
                     } else if(type=='bet'){
                         str = 'Bet ';
                     } else if(type=='broadcast'){
-                        str = 'Counterparty Broadcast';
+                        str = 'Unoparty Broadcast';
                     } else if(type=='burn'){
                         str = 'Burned ';
                     } else if(type=='dividend'){
                         str = 'Paid Dividend on ';
                     } else if(type=='issuance'){
-                        str = 'Counterparty Issuance';
+                        str = 'Unoparty Issuance';
                     } else if(type=='order'){
                         str = 'Order - Buy ';
                     } else if(type=='cancel'){
                         str = 'Order - Cancel ';
                     }
                     if(type=='send'||type=='bet'||type=='burn'||type=='order'){
-                        if(/\./.test(amt) || values.asset=='BTC')
+                        if(/\./.test(amt) || values.asset=='UNO')
                             fmt += '.00000000';
                         str += numeral(amt).format(fmt);
                     }
@@ -123,7 +123,7 @@ Ext.define('FW.view.TransactionsList', {
                     me.setMasked(false);
                     me.refreshing = false;
                 };
-                me.main.getAddressHistory(FW.WALLET_ADDRESS.address, cb);
+                me.main.getAddressHistory(FWUE.WALLET_ADDRESS.address, cb);
             }        
         }]
     },
@@ -131,20 +131,20 @@ Ext.define('FW.view.TransactionsList', {
     initialize: function(){
         var me  = this;
         // Setup alias to toolbar
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Display the menu button if we are on a phone
         if(me.main.deviceType=='phone')
             me.tb.menuBtn.show();
         // Display address label in titlebar, wrap at 220 pixels, display address on tap
-        me.tb.tb.setTitle(FW.WALLET_ADDRESS.label);
+        me.tb.tb.setTitle(FWUE.WALLET_ADDRESS.label);
         var title = me.tb.tb.element.down('.x-title');
         title.setMaxWidth(220);
-        title.on('tap',function(){ me.main.showQRCodeView({ text: FW.WALLET_ADDRESS.address }); });
+        title.on('tap',function(){ me.main.showQRCodeView({ text: FWUE.WALLET_ADDRESS.address }); });
         // Call parent function
         me.callParent();
         // Handle sorting currencies by type and name
-        // We do this so we show currencies (BTC,XCP) before assets
+        // We do this so we show currencies (UNO,XUP) before assets
         me.getStore().sort([{
             property : 'time',
             direction: 'DESC'

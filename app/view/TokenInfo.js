@@ -1,17 +1,17 @@
 /*
  * TokenInfo.js - View
- * 
+ *
  * Handle displaying information about the token (name, supply, description, etc).
  */
 
- Ext.define('FW.view.TokenInfo', {
+ Ext.define('FWUE.view.TokenInfo', {
     extend: 'Ext.Container',
     xtype: 'fw-tokeninfo',
 
     requires:[
         'Ext.Img',
-        'FW.view.phone.TokenInfo',
-        'FW.view.tablet.TokenInfo'
+        'FWUE.view.phone.TokenInfo',
+        'FWUE.view.tablet.TokenInfo'
     ],
 
     config: {
@@ -23,9 +23,9 @@
     initialize: function(){
         var me = this;
         // Setup some aliases
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         // Add view based on device type
-        me.add({ xclass:'FW.view.' + me.main.deviceType + '.TokenInfo' });
+        me.add({ xclass:'FWUE.view.' + me.main.deviceType + '.TokenInfo' });
         // Now that we have added the correct view, setup some aliases to various components
         me.tb          = me.down('fw-toptoolbar');
         me.image       = me.down('[itemId=image]');
@@ -33,8 +33,8 @@
         me.balance     = me.down('[itemId=balance]');
         me.description = me.down('[itemId=description]');
         me.supply      = me.down('[itemId=supply]');
-        me.xcp         = me.down('[itemId=xcp]');
-        me.btc         = me.down('[itemId=btc]');
+        me.xcp         = me.down('[itemId=xup]');
+        me.btc         = me.down('[itemId=uno]');
         me.usd         = me.down('[itemId=usd]');
         me.divisible   = me.down('[itemId=divisible]');
         me.locked      = me.down('[itemId=locked]');
@@ -55,7 +55,7 @@
             });
         });
         // Handle displaying current address and currency in QRCode
-        me.receiveBtn.on('tap',function(btn){ 
+        me.receiveBtn.on('tap',function(btn){
             me.main.showTool('receive', {
                 reset: true,
                 asset: me.getData().asset
@@ -85,7 +85,7 @@
             me.information.show();
         }
         // Update currency name and image
-        me.image.setSrc('https://xchain.io/icon/' + data.asset.toUpperCase() + '.png');
+        me.image.setSrc('https://unoparty.xchain.io/icon/' + data.asset.toUpperCase() + '.png');
         me.updateData(data);
         // Get the basic currency information
         me.getTokenInfo(data);
@@ -107,8 +107,8 @@
         me.divisible.setValue((data.divisible) ? 'True' : 'False');
         me.locked.setValue((data.locked) ? 'True' : 'False');
         var usd = (data.estimated_value) ? data.estimated_value.usd : 0,
-            btc = (data.estimated_value) ? data.estimated_value.btc : 0,
-            xcp = (data.estimated_value) ? data.estimated_value.xcp : 0;
+            UNO = (data.estimated_value) ? data.estimated_value.btc : 0,
+            XUP = (data.estimated_value) ? data.estimated_value.xcp : 0;
         me.usd.setValue(numeral(usd).format('0,0.00'));
         me.btc.setValue(numeral(btc).format('0,0.00000000'));
         me.xcp.setValue(numeral(xcp).format('0,0.00000000'));
@@ -122,23 +122,23 @@
     // Handle requesting basic asset information
     getTokenInfo: function(data){
         var me   = this;
-        if(data.asset=='BTC'){
-            var price_usd = me.main.getCurrencyPrice('bitcoin','usd'),
+        if(data.asset=='UNO'){
+            var price_usd = me.main.getCurrencyPrice('unobtanium','usd'),
                 values = Ext.apply(data.estimated_value,{
                 usd: price_usd
             });
             me.updateData({
-                asset: 'BTC',
+                asset: 'UNO',
                 quantity: data.quantity,
-                supply: '21000000.00000000',
-                website: 'http://bitcoin.org',
+                supply: '250000.00000000',
+                website: 'http://unobtanium.uno',
                 divisible: true,
                 locked: true,
-                description: 'Bitcoin is digital money',
+                description: 'Unobtanium is digital money',
                 estimated_value: values
             });
         } else {
-            // Set loading mask on panel to indicate we are loading 
+            // Set loading mask on panel to indicate we are loading
             me.setMasked({
                 xtype: 'loadmask',
                 cls: 'fw-panel',
@@ -150,12 +150,12 @@
                 var desc = o.description;
                 if(me.main.isUrl(desc))
                     o.website = desc;
-                if(data.asset=='XCP'){
-                    o.website = 'https://counterparty.io';
+                if(data.asset=='XUP'){
+                    o.website = 'https://unoparty.io';
                     o.locked = true;
-                    o.description = 'Counterparty extends Bitcoin in new and powerful ways.';                       
+                    o.description = 'Unoparty extends Unobtanium in new and powerful ways.';
                 }
-                me.updateData(Ext.apply(o,{ 
+                me.updateData(Ext.apply(o,{
                     quantity: data.quantity,
                     asset: data.asset
                 }));
@@ -187,6 +187,6 @@
                 // if(o.image)
                 //     me.image.setSrc(o.image);
             }
-        });            
+        });
     }
 });

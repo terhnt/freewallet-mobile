@@ -4,7 +4,7 @@
  * Handle displaying Over-The-Counter (OTC) exchange view
  */
 
-Ext.define('FW.view.OTCMarket', {
+Ext.define('FWUE.view.OTCMarket', {
     extend: 'Ext.Container',
     
     config: {
@@ -36,7 +36,7 @@ Ext.define('FW.view.OTCMarket', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Call parent
         me.callParent();

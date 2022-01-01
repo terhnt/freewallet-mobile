@@ -4,7 +4,7 @@
  * Handle displaying settings 
  */
 
-Ext.define('FW.view.Settings', {
+Ext.define('FWUE.view.Settings', {
     extend: 'Ext.Container',
 
     requires:[
@@ -14,7 +14,7 @@ Ext.define('FW.view.Settings', {
         'Ext.field.Password',
         'Ext.field.Text',
         'Ext.field.Toggle',
-        'FW.view.field.Action'
+        'FWUE.view.field.Action'
     ],
     
     config: {
@@ -50,7 +50,7 @@ Ext.define('FW.view.Settings', {
                     placeHolder: 'My Wallet Passphrase',
                     value: 'blah blah blah blah blah blah blah blah blah blah blah blah',
                     handler: function(){
-                        FW.app.getController('Main').showWalletPassphrase();
+                        FWUE.app.getController('Main').showWalletPassphrase();
                     },
                     listeners: {
                         focus: function(cmp){
@@ -65,7 +65,7 @@ Ext.define('FW.view.Settings', {
                     readOnly: true,
                     iconCls: 'fa fa-edit',
                     handler: function(){
-                        FW.app.getController('Main').showAddressListView();
+                        FWUE.app.getController('Main').showAddressListView();
                     },
                     listeners: {
                         focus: function(cmp){
@@ -82,7 +82,7 @@ Ext.define('FW.view.Settings', {
                     placeHolder: 'Private Key',
                     value: 'blah blah blah blah blah blah blah blah blah blah blah blah',
                     handler: function(){
-                        FW.app.getController('Main').showPrivateKey();
+                        FWUE.app.getController('Main').showPrivateKey();
                     },
                     listeners: {
                         focus: function(cmp){
@@ -97,7 +97,7 @@ Ext.define('FW.view.Settings', {
                         // When user changes address label, handle updating datastore
                         change: function(cmp, newVal, oldVal){
                             if(newVal!=oldVal)
-                                FW.app.getController('Main').setWalletAddressLabel(newVal);
+                                FWUE.app.getController('Main').setWalletAddressLabel(newVal);
                         }
                     }
                 },{ 
@@ -118,7 +118,7 @@ Ext.define('FW.view.Settings', {
                             '</div>',
                             {
                                 getIcon: function(values){
-                                    var img  = (values.value==2) ? 'tbtc.png' : 'btc.png',
+                                    var img  = (values.value==2) ? 'tuno.png' : 'uno.png',
                                         icon = '<img src="resources/images/icons/' + img + '"/>';
                                     return icon;
                                 }
@@ -138,7 +138,7 @@ Ext.define('FW.view.Settings', {
                             '</div>',
                             {
                                 getIcon: function(values){
-                                    var img  = (values.value=='2') ? 'tbtc.png' : 'btc.png',
+                                    var img  = (values.value=='2') ? 'tuno.png' : 'uno.png',
                                         icon = '<img src="resources/images/icons/' + img + '" width="30"/>';
                                     return icon;
                                 }
@@ -152,8 +152,8 @@ Ext.define('FW.view.Settings', {
                     listeners: {
                         // When user changes network, handle changing wallet network and loading first address
                         change: function(cmp, newVal, oldVal){
-                            if(newVal!=oldVal && newVal!=FW.WALLET_NETWORK){
-                                FW.app.getController('Main').setWalletNetwork(newVal, true);
+                            if(newVal!=oldVal && newVal!=FWUE.WALLET_NETWORK){
+                                FWUE.app.getController('Main').setWalletNetwork(newVal, true);
                             }
                         }
                     }
@@ -268,7 +268,7 @@ Ext.define('FW.view.Settings', {
                         change: function(cmp, val){
                             var me  = Ext.getCmp('settingsPanel'),
                                 cfg = cmp.initialConfig,
-                                o   = FW.SERVER_INFO;
+                                o   = FWUE.SERVER_INFO;
                             if(cfg.name=='mainnet.cpHost') o.mainnet.cpHost = val;
                             if(cfg.name=='mainnet.cpPort') o.mainnet.cpPort = val;
                             if(cfg.name=='mainnet.cpUser') o.mainnet.cpUser = val;
@@ -286,65 +286,65 @@ Ext.define('FW.view.Settings', {
                 items:[{
                     xtype: 'field',
                     labelAlign: 'top',
-                    label: 'Bitcoin Mainnet'
+                    label: 'Unobtanium Mainnet'
                 },{
                     name: 'mainnet.cpHost',
                     label: 'CP Host',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the hostname of a Counterparty server you would like to use.');
+                        Ext.Msg.alert(null, 'This is the hostname of a Unoparty server you would like to use.');
                     }
                 },{
                     name: 'mainnet.cpPort',
                     label: 'CP Port',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the port on which the Counterparty server is running.');
+                        Ext.Msg.alert(null, 'This is the port on which the Unoparty server is running.');
                     }
                 },{
                     name: 'mainnet.cpUser',
                     label: 'CP User',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the username you would like to use to login to the Counterparty server.');
+                        Ext.Msg.alert(null, 'This is the username you would like to use to login to the Unoparty server.');
                     }
                 },{
                     name: 'mainnet.cpPass',
                     label: 'CP Pass',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the password you would like to use to login to the Counterparty server.');
+                        Ext.Msg.alert(null, 'This is the password you would like to use to login to the Unoparty server.');
                     }
                 },{
                     type: 'togglefield',
                     name: 'mainnet.cpSSL',
                     label: 'Use SSL',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This determines if the Counterparty server uses an SSL certificate.');
+                        Ext.Msg.alert(null, 'This determines if the Unoparty server uses an SSL certificate.');
                     }
                 },{
                     xtype: 'field',
                     labelAlign: 'top',
-                    label: 'Bitcoin Testnet'
+                    label: 'Unobtanium Testnet'
                 },{
                     name: 'testnet.cpHost',
                     label: 'CP Host',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the hostname of a Counterparty server you would like to use.');
+                        Ext.Msg.alert(null, 'This is the hostname of a Unoparty server you would like to use.');
                     }
                 },{
                     name: 'testnet.cpPort',
                     label: 'CP Port',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the port on which the Counterparty server is running.');
+                        Ext.Msg.alert(null, 'This is the port on which the Unoparty server is running.');
                     }
                 },{
                     name: 'testnet.cpUser',
                     label: 'CP User',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the username you would like to use to login to the Counterparty server.');
+                        Ext.Msg.alert(null, 'This is the username you would like to use to login to the Unoparty server.');
                     }
                 },{
                     name: 'testnet.cpPass',
                     label: 'CP Pass',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This is the password you would like to use to login to the Counterparty server.');
+                        Ext.Msg.alert(null, 'This is the password you would like to use to login to the Unoparty server.');
                     }
                 },{
                     type: 'togglefield',
@@ -352,7 +352,7 @@ Ext.define('FW.view.Settings', {
                     label: 'Use SSL',
                     // cls: 'x-last-field',
                     handler: function(){
-                        Ext.Msg.alert(null, 'This determines if the Counterparty server uses an SSL certificate.');
+                        Ext.Msg.alert(null, 'This determines if the Unoparty server uses an SSL certificate.');
                     }
                 }]
             },{
@@ -384,7 +384,7 @@ Ext.define('FW.view.Settings', {
                 ui: 'action',
                 margin: '5 10 5 10',
                 handler: function(){
-                    FW.app.getController('Main').clearAppCache(true);
+                    FWUE.app.getController('Main').clearAppCache(true);
                 }
             },{
                 xtype: 'button',
@@ -393,7 +393,7 @@ Ext.define('FW.view.Settings', {
                 ui: 'decline',
                 margin: '5 10 10 10',
                 handler: function(){
-                    FW.app.getController('Main').promptLogout();
+                    FWUE.app.getController('Main').promptLogout();
                 }
             }]
         }]
@@ -404,9 +404,9 @@ Ext.define('FW.view.Settings', {
         var me  = this,
             cfg = me.config,
             sm  = localStorage,
-            o   = FW.SERVER_INFO;
+            o   = FWUE.SERVER_INFO;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         // Setup some aliases to the various fields
         me.passphrase = me.down('[name=passphrase]');
         me.passcode   = me.down('[name=passcode]');
@@ -455,11 +455,11 @@ Ext.define('FW.view.Settings', {
             me.toggleField(me.passcode,1);
         }
         // Update screen with current wallet address info
-        if(FW.WALLET_ADDRESS){
-            me.address.setValue(FW.WALLET_ADDRESS.address);
-            me.label.setValue(FW.WALLET_ADDRESS.label);
+        if(FWUE.WALLET_ADDRESS){
+            me.address.setValue(FWUE.WALLET_ADDRESS.address);
+            me.label.setValue(FWUE.WALLET_ADDRESS.label);
         }
-        me.network.setValue(FW.WALLET_NETWORK);
+        me.network.setValue(FWUE.WALLET_NETWORK);
         // Call parent
         me.callParent();
     },
@@ -469,7 +469,7 @@ Ext.define('FW.view.Settings', {
     saveServerSettings: function(){
         var me = this,
             sm = localStorage;
-        sm.setItem('serverInfo', Ext.encode(FW.SERVER_INFO));
+        sm.setItem('serverInfo', Ext.encode(FWUE.SERVER_INFO));
     },
 
 

@@ -4,12 +4,12 @@
  * Display balances list
  */
 
-Ext.define('FW.view.Balances', {
+Ext.define('FWUE.view.Balances', {
     extend: 'Ext.Container',
 
     requires:[
-        'FW.view.phone.Balances',
-        'FW.view.tablet.Balances'
+        'FWUE.view.phone.Balances',
+        'FWUE.view.tablet.Balances'
     ],
 
     config: {
@@ -22,9 +22,9 @@ Ext.define('FW.view.Balances', {
     initialize: function(){
         var me = this;
         // Setup alias to main controller
-        me.main  = FW.app.getController('Main');
+        me.main  = FWUE.app.getController('Main');
         // Add view based on device type
-        me.add({ xclass:'FW.view.' + me.main.deviceType + '.Balances' });
+        me.add({ xclass:'FWUE.view.' + me.main.deviceType + '.Balances' });
         // Setup some aliases to the various components
         me.list  = me.down('fw-balanceslist');
         me.info  = me.down('fw-tokeninfo');

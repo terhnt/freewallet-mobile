@@ -4,7 +4,7 @@
  * Handle displaying transaction priority fieldset
  */
 
- Ext.define('FW.view.TransactionPriority', {
+ Ext.define('FWUE.view.TransactionPriority', {
     extend: 'Ext.form.FieldSet',
     xtype: 'fw-transactionpriority',
 
@@ -80,7 +80,7 @@
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         // Setup aliases to the various fields
         me.feePriority = me.down('[name=feePriority]');
         me.feeType     = me.down('[name=feeType]');
@@ -104,7 +104,7 @@
     // Handle determining the miner fee
     setFee: function(val){
         var me  = this,
-            o   = FW.MINER_FEES,
+            o   = FWUE.MINER_FEES,
             avg = 530,    // Average transaction size (https://tradeblock.com/bitcoin/historical/1h-f-tsize_per_avg-01101)
             fee = 0.0001; // Minimum transaction fee
         if(o){

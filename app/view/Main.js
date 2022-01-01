@@ -4,7 +4,7 @@
  * Displays main application view
  */
  
-Ext.define('FW.view.Main', {
+Ext.define('FWUE.view.Main', {
     extend: 'Ext.tab.Panel',
     xtype: 'main',
 
@@ -20,11 +20,11 @@ Ext.define('FW.view.Main', {
             animation: 'fade'
         },
         items: [
-            {iconCls: 'piggybank',  title: 'Balances', xclass: 'FW.view.Balances'},
-            {iconCls: 'fa-history', title: 'History',  xclass: 'FW.view.History'},
-            {iconCls: 'fa-gears',   title: 'Tools',    xclass: 'FW.view.Tools'},
-            {iconCls: 'user',       title: 'About',    xclass: 'FW.view.About'},
-            {iconCls: 'settings',   title: 'Settings', xclass: 'FW.view.Settings'}
+            {iconCls: 'piggybank',  title: 'Balances', xclass: 'FWUE.view.Balances'},
+            {iconCls: 'fa-history', title: 'History',  xclass: 'FWUE.view.History'},
+            {iconCls: 'fa-gears',   title: 'Tools',    xclass: 'FWUE.view.Tools'},
+            {iconCls: 'user',       title: 'About',    xclass: 'FWUE.view.About'},
+            {iconCls: 'settings',   title: 'Settings', xclass: 'FWUE.view.Settings'}
         ]
     }
 });

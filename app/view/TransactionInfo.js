@@ -1,17 +1,17 @@
 /*
  * TransactionInfo.js - View
- * 
+ *
  * Displays transaction information
  */
- 
- Ext.define('FW.view.TransactionInfo', {
+
+ Ext.define('FWUE.view.TransactionInfo', {
     extend: 'Ext.Container',
     xtype: 'fw-transactioninfo',
 
     requires:[
         'Ext.Img',
-        'FW.view.phone.TransactionInfo',
-        'FW.view.tablet.TransactionInfo'
+        'FWUE.view.phone.TransactionInfo',
+        'FWUE.view.tablet.TransactionInfo'
     ],
 
     config: {
@@ -23,9 +23,9 @@
     initialize: function(){
         var me = this;
         // Setup some aliases
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         // Add view based on device type
-        me.add({ xclass:'FW.view.' + me.main.deviceType + '.TransactionInfo' });
+        me.add({ xclass:'FWUE.view.' + me.main.deviceType + '.TransactionInfo' });
         // Now that we have added the correct view, setup some aliases to various components
         me.tb          = me.down('fw-toptoolbar');
         me.image       = me.down('[itemId=image]');
@@ -44,9 +44,9 @@
         me.iconholder  = me.down('[itemId=iconContainer]');
         me.message     = me.down('[itemId=message]');
         me.value       = me.down('[itemId=value]');
-        me.description = me.down('[itemId=description]'); 
-        me.divisible   = me.down('[itemId=divisible]'); 
-        me.locked      = me.down('[itemId=locked]');    
+        me.description = me.down('[itemId=description]');
+        me.divisible   = me.down('[itemId=divisible]');
+        me.locked      = me.down('[itemId=locked]');
         me.transfer    = me.down('[itemId=transfer]');
         me.feePaid     = me.down('[itemId=feePaid]');
         me.issuer      = me.down('[itemId=issuer]');
@@ -76,8 +76,8 @@
             var field = me[name];
             // Handle native copy-to-clipboard functionality
             if(me.main.isNative){
-                field.btn.on('tap', function(){ 
-                    me.main.copyToClipboard(field.getValue()); 
+                field.btn.on('tap', function(){
+                    me.main.copyToClipboard(field.getValue());
                 });
             } else {
                 // Handle non-native copy-to-clipboard functionality
@@ -124,7 +124,7 @@
         me.selling.hide();
         // Handle Sends
         if(data.type=='send'){
-            me.image.setSrc('https://xchain.io/icon/' + data.asset.toUpperCase() + '.png');
+            me.image.setSrc('https://unoparty.xchain.io/icon/' + data.asset.toUpperCase() + '.png');
             me.iconholder.show();
             me.quantity.show();
             me.destination.show();
@@ -137,7 +137,7 @@
             me.value.show();
         } else if(data.type=='issuance'){
             // Handle Issuances
-            me.image.setSrc('https://xchain.io/icon/' + data.asset.toUpperCase() + '.png');
+            me.image.setSrc('https://unoparty.xchain.io/icon/' + data.asset.toUpperCase() + '.png');
             me.iconholder.show();
             me.quantity.show();
             me.description.show();
@@ -147,9 +147,9 @@
             me.feePaid.show();
             me.issuer.show();
         }
-        // Hide miners fees for everything except BTC for now
+        // Hide miners fees for everything except UNO for now
         // Come back at some point and add code to determine miners fees WITHOUT having to make an extra API call
-        if(data.asset=='BTC'){
+        if(data.asset=='UNO'){
             me.fee.show();
         } else {
             me.fee.hide();
@@ -163,7 +163,7 @@
     updateData: function(data){
         // console.log('updateData data=',data);
         var me    = this,
-            fmt   = (/\./.test(data.quantity)||data.asset=='BTC') ? '0,0.00000000' : '0,0',
+            fmt   = (/\./.test(data.quantity)||data.asset=='UNO') ? '0,0.00000000' : '0,0',
             time  = (data.timestamp) ? Ext.Date.format(new Date(parseInt(data.timestamp + '000')),'m-d-Y H:i:s') : '',
             block = (data.block_index) ? numeral(data.block_index).format('0,0') : '-',
             qty   = (data.quantity) ? data.quantity.replace('-','') : 0,
@@ -182,7 +182,7 @@
         }
         if(type=='Cancel')
             type = 'Cancel Order';
-        me.asset.setValue(asset);    
+        me.asset.setValue(asset);
         me.type.setValue(type);
         me.quantity.setValue(numeral(qty).format(fmt));
         me.source.setValue(data.source);
@@ -200,14 +200,14 @@
         me.locked.setValue(data.locked);
         me.transfer.setValue(data.transfer);
         me.feePaid.setValue(data.feePaid);
-        me.issuer.setValue(data.issuer);  
+        me.issuer.setValue(data.issuer);
     },
 
 
     // Handle requesting transaction information
     getTransactionInfo: function(data){
         var me    = this;
-        // Set loading mask on panel to indicate we are loading 
+        // Set loading mask on panel to indicate we are loading
         me.setMasked({
             xtype: 'loadmask',
             cls: 'fw-panel',
@@ -215,9 +215,9 @@
             showAnimation: 'fadeIn',
             indicator: true
         });
-        if(data.asset=='BTC'){
-            var net  = (FW.WALLET_NETWORK==2) ? '/testnet' : '',
-                url  = 'https://blockstream.info' + net + '/api/tx/' + data.hash,
+        if(data.asset=='UNO'){
+            var net  = (FWUE.WALLET_NETWORK==2) ? '/testnet' : '',
+                url  = 'https://chainz.cryptoid.info/uno/api.dws?q=txinfo&t=' + data.hash,
                 href = 'https://blockstream.info' + net + '/tx/' + data.hash;
             // Request transaction information from blockstream
             me.main.ajaxRequest({
@@ -225,9 +225,9 @@
                 success: function(o){
                     if(o.txid){
                         var fee = (data.fee=='NA') ? data.fee : numeral(String(data.fee).replace('+','').replace('-','')).format('0.00000000');
-                        me.updateData(Ext.apply(o,{ 
+                        me.updateData(Ext.apply(o,{
                             type: 'Send',
-                            asset: 'BTC',
+                            asset: 'UNO',
                             quantity: numeral(o.vout[0].value).multiply(0.00000001).format('0,0.00000000'),
                             hash: data.hash,
                             status: (o.status.block_height) ? 'Valid' : 'Pending',
@@ -242,9 +242,9 @@
                     }
                 },
                 failure: function(o){
-                    var net  = (FW.WALLET_NETWORK==2) ? 'test3' : 'main',
-                        net2 = (FW.WALLET_NETWORK==2) ? 'btc-testnet' : 'btc',
-                        url  = 'https://api.blockcypher.com/v1/btc/' + net + '/txs/' + data.hash,
+                    var net  = (FWUE.WALLET_NETWORK==2) ? 'test3' : 'main',
+                        net2 = (FWUE.WALLET_NETWORK==2) ? 'uno-testnet' : 'uno',
+                        url  = 'https://chainz.cryptoid.info/uno/api.dws?q=txinfo&t=' + data.hash,
                         href = 'https://live.blockcypher.com/' + net2 + '/tx/' + data.hash
                     // Request transaction information from blockstream
                     me.main.ajaxRequest({
@@ -252,9 +252,9 @@
                         success: function(o){
                             if(o.hash){
                                 var fee = (data.fee=='NA') ? data.fee : numeral(String(data.fee).replace('+','').replace('-','')).format('0.00000000');
-                                me.updateData(Ext.apply(o,{ 
+                                me.updateData(Ext.apply(o,{
                                     type: 'Send',
-                                    asset: 'BTC',
+                                    asset: 'UNO',
                                     quantity: numeral(o.outputs[0].value).multiply(0.00000001).format('0,0.00000000'),
                                     hash: data.hash,
                                     status: (o.block_height) ? 'Valid' : 'Pending',
@@ -273,21 +273,21 @@
             });
         } else {
             // Handle requesting transaction info from xchain.io API
-            var host = (FW.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
+            var host = (FWUE.WALLET_NETWORK==2) ? 'testnet.unoparty.xchain.io' : 'unoparty.xchain.io';
             me.main.ajaxRequest({
                 url: 'https://' + host + '/api/tx/' + data.hash,
                 // Success function called when we receive a success response
                 success: function(o){
                     if(!o.error){
                         var fee = (data.fee=='NA') ? data.fee : numeral(String(data.fee).replace('+','').replace('-','')).format('0.00000000');
-                        me.updateData(Ext.apply(o,{ 
+                        me.updateData(Ext.apply(o,{
                             asset: o.asset,
                             quantity: o.quantity,
                             hash: data.hash,
                             message: o.text,
                             value: o.value,
                             type: o.tx_type,
-                            feePaid: o.fee + ' XCP',
+                            feePaid: o.fee + ' XUP',
                             transfer: (o.transfer) ? 'True' : 'False',
                             locked: (o.locked) ? 'True' : 'False',
                             divisible: (o.divisible) ? 'True' : 'False',
@@ -299,8 +299,8 @@
                 // Callback function called on any response
                 callback: function(){
                     me.setMasked(false);
-                }    
-            }); 
+                }
+            });
 
         }
     }

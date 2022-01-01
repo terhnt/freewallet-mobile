@@ -1,10 +1,10 @@
 /*
- * FW.view.PrivateKey.js - View 
+ * FWUE.view.PrivateKey.js - View 
  *
  * Handle displaying a address private key
  */
 
-Ext.define('FW.view.PrivateKey', {
+Ext.define('FWUE.view.PrivateKey', {
     extend: 'Ext.Panel',
     xtype: 'fw-privatekey',
 
@@ -68,7 +68,7 @@ Ext.define('FW.view.PrivateKey', {
                     // Handle copying text to clipboard when user taps button
                     tap: function(cmp){
                         var me  = Ext.getCmp('privateKeyView'),
-                            str = me.main.getPrivateKey(FW.WALLET_NETWORK, FW.WALLET_ADDRESS.address);
+                            str = me.main.getPrivateKey(FWUE.WALLET_NETWORK, FWUE.WALLET_ADDRESS.address);
                         me.main.copyToClipboard(str);
                     }
                 }
@@ -89,7 +89,7 @@ Ext.define('FW.view.PrivateKey', {
     initialize: function(){
         var me  = this,
             cfg = me.config;
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         // Adjust the box to be wider for tablets
         var w  = (me.main.deviceType=='tablet') ? 400 : '90%'
         me.setWidth(w);

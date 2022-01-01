@@ -4,7 +4,7 @@
  * Handle displaying a scannable QRCode
  */
 
-Ext.define('FW.view.Receive', {
+Ext.define('FWUE.view.Receive', {
     extend: 'Ext.form.Panel',
     
     config: {
@@ -44,7 +44,7 @@ Ext.define('FW.view.Receive', {
                 },{
                     label: 'Name',
                     name: 'asset',
-                    value: 'BTC',
+                    value: 'UNO',
                     readOnly: true
                 },{
                     xtype: 'fw-spinnerfield',
@@ -65,7 +65,7 @@ Ext.define('FW.view.Receive', {
                                     newVal = 0;
                                 // Handle updating amount
                                 if(!me.price.isDisabled() && me.tokenInfo.estimated_value.btc!='0.00000000'){
-                                    var price_usd = me.main.getCurrencyPrice('bitcoin','usd');
+                                    var price_usd = me.main.getCurrencyPrice('unobtanium','usd');
                                     // Calculate amount via ((quantity_usd / btc_price_usd) / asset_btc)
                                     // We do this because it is more accurate than using the asset USD value
                                     var amount = ((numeral(newVal).value() / price_usd) / me.tokenInfo.estimated_value.btc);
@@ -94,7 +94,7 @@ Ext.define('FW.view.Receive', {
                                     cur = me.asset.getValue();
                                 // Handle updating price
                                 if(!me.price.isDisabled() && me.tokenInfo.estimated_value.btc!='0.00000000'){
-                                    var price_usd = me.main.getCurrencyPrice('bitcoin','usd');
+                                    var price_usd = me.main.getCurrencyPrice('unobtanium','usd');
                                     // Calculate price via ((asset_btc_price * quantity) * current_btc_price)
                                     // We do this because it is more accurate than using the asset USD value
                                     var price = (me.tokenInfo.estimated_value.btc *  numeral(newVal).value()) * price_usd;
@@ -116,7 +116,7 @@ Ext.define('FW.view.Receive', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         me.address    = me.down('[name=address]');
@@ -140,11 +140,11 @@ Ext.define('FW.view.Receive', {
             me.tb.backBtn.hide();
         }
         if(cfg.reset){
-            me.address.setValue(FW.WALLET_ADDRESS.address);
+            me.address.setValue(FWUE.WALLET_ADDRESS.address);
             me.amount.reset();
             me.asset.reset();
         }
-        var asset = (cfg.asset) ? cfg.asset : 'BTC';
+        var asset = (cfg.asset) ? cfg.asset : 'UNO';
         me.asset.setValue(asset);
         me.getTokenInfo(asset);
         // Handle updating the QR Code
@@ -154,9 +154,9 @@ Ext.define('FW.view.Receive', {
     // Handle getting information on a specific token
     getTokenInfo: function(asset){
         var me = this;
-        if(asset=='BTC'){
-            var price_usd = me.main.getCurrencyPrice('bitcoin','usd'),
-                price_btc = me.main.getCurrencyPrice('counterparty','btc');
+        if(asset=='UNO'){
+            var price_usd = me.main.getCurrencyPrice('unobtanium','usd'),
+                price_btc = me.main.getCurrencyPrice('unoparty','uno');
             me.tokenInfo = {
                 estimated_value : {
                     btc: 1.00000000,
@@ -179,7 +179,7 @@ Ext.define('FW.view.Receive', {
     updateAmountField: function(asset){
         var me      = this,
             store   = Ext.getStore('Balances'),
-            prefix  = FW.WALLET_ADDRESS.address.substr(0,5);
+            prefix  = FWUE.WALLET_ADDRESS.address.substr(0,5);
             balance = 0;
         // Find balance in store
         store.each(function(item){
@@ -206,12 +206,12 @@ Ext.define('FW.view.Receive', {
     updateQRCode: function(){
         var me   = this,
             vals = me.getValues(),
-            txt  = (vals.asset=='BTC') ? 'bitcoin' : 'counterparty',
+            txt  = (vals.asset=='UNO') ? 'unobtanium' : 'unoparty',
             amt  = String(vals.amount).replace(/\,/g,''),
             q    = '',
             o    = {};
         txt +=  ':' + vals.address;
-        if(vals.asset!='BTC')
+        if(vals.asset!='UNO')
             o.asset = vals.asset;
         if(amt>0)
             o.amount = amt;

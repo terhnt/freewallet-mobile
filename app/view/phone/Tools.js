@@ -4,7 +4,7 @@
  * Display list of tools on phone
  */
 
-Ext.define('FW.view.phone.Tools', {
+Ext.define('FWUE.view.phone.Tools', {
     extend: 'Ext.Container',
 
     config: {

@@ -4,7 +4,7 @@
  * Display list of tools on tablet
  */
 
-Ext.define('FW.view.tablet.Tools', {
+Ext.define('FWUE.view.tablet.Tools', {
     extend: 'Ext.Container',
 
     config: {

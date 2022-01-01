@@ -74,14 +74,14 @@
  *      });
  *
  */
-Ext.define('FW.ux.AccordionList', {
+Ext.define('FWUE.ux.AccordionList', {
     extend: 'Ext.Container',
     xtype: 'accordionlist',
     alternateClassName: 'Ext.AccordionList',
 
     requires: [
         'Ext.dataview.List',
-        'FW.ux.AccordionListItem'
+        'FWUE.ux.AccordionListItem'
     ],
 
     config: {

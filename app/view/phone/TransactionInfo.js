@@ -3,7 +3,7 @@
  * 
  * Display transaction information on phone
  */
- Ext.define('FW.view.phone.TransactionInfo', {
+ Ext.define('FWUE.view.phone.TransactionInfo', {
     extend: 'Ext.Container',
 
     config: {

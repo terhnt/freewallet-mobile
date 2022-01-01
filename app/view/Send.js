@@ -1,10 +1,10 @@
 /*
- * Send.js - View 
+ * Send.js - View
  *
- * Handle displaying 'Send' form 
+ * Handle displaying 'Send' form
  */
 
-Ext.define('FW.view.Send', {
+Ext.define('FWUE.view.Send', {
     extend: 'Ext.form.Panel',
 
     config: {
@@ -39,7 +39,7 @@ Ext.define('FW.view.Send', {
                     items:[{
                         xtype: 'image',
                         itemId: 'image',
-                        src: 'resources/images/icons/btc.png',
+                        src: 'resources/images/icons/uno.png',
                         width: 48,
                         height: 48,
                         listeners: {
@@ -63,13 +63,13 @@ Ext.define('FW.view.Send', {
                         store: 'Balances',
                         displayField: 'display_name',
                         valueField: 'asset',
-                        value: 'BTC',
+                        value: 'UNO',
                         defaultTabletPickerConfig: {
                             cls: 'fw-currency-picker',
                             itemTpl: new Ext.XTemplate(
                                 '<div class="fw-pickerlist-item">' +
                                     '<div class="fw-pickerlist-icon">' +
-                                        '<img src="https://xchain.io/icon/{[this.toUpper(values.asset)]}.png">' + 
+                                        '<img src="https://unoparty.xchain.io/icon/{[this.toUpper(values.asset)]}.png">' +
                                     '</div>' +
                                     '<div class="fw-pickerlist-info">' +
                                         '<div class="fw-pickerlist-currency">{display_name}</div>' +
@@ -87,7 +87,7 @@ Ext.define('FW.view.Send', {
                             itemTpl: new Ext.XTemplate(
                                 '<div class="fw-pickerlist-item">' +
                                     '<div class="fw-pickerlist-icon">' +
-                                        '<img src="https://xchain.io/icon/{[this.toUpper(values.asset)]}.png" width="35">' + 
+                                        '<img src="https://unoparty.xchain.io/icon/{[this.toUpper(values.asset)]}.png" width="35">' +
                                     '</div>' +
                                     '<div class="fw-pickerlist-info">' +
                                         '<div class="fw-pickerlist-currency">{display_name}</div>' +
@@ -104,7 +104,7 @@ Ext.define('FW.view.Send', {
                             // When currency changes, update currency image and balance
                             change: function(cmp, value){
                                 var me   = Ext.getCmp('sendView'),
-                                    step = (value=='BTC') ? 0.01 : 1;
+                                    step = (value=='UNO') ? 0.01 : 1;
                                 me.amount.setValue(0);
                                 me.amount.setStepValue(step);
                                 me.updateImage(value);
@@ -130,7 +130,7 @@ Ext.define('FW.view.Send', {
                     iconCls: 'fa fa-qrcode',
                     handler: function(){
                         var view = Ext.getCmp('sendView');
-                        FW.app.getController('Main').scanQRCode(view);
+                        FWUE.app.getController('Main').scanQRCode(view);
                     }
                 },{
                     label: 'Balance',
@@ -157,7 +157,7 @@ Ext.define('FW.view.Send', {
                                     newVal = 0;
                                 // Handle updating amount
                                 if(!me.price.isDisabled() && me.tokenInfo && me.tokenInfo.estimated_value.btc!='0.00000000'){
-                                    var price_usd = me.main.getCurrencyPrice('bitcoin','usd');
+                                    var price_usd = me.main.getCurrencyPrice('unobtanium','usd');
                                     // Calculate amount via ((quantity_usd / btc_price_usd) / asset_btc)
                                     // We do this because it is more accurate than using the asset USD value
                                     var amount = ((numeral(newVal).value() / price_usd) / me.tokenInfo.estimated_value.btc);
@@ -185,7 +185,7 @@ Ext.define('FW.view.Send', {
                                     cur = me.asset.getValue();
                                 // Handle updating price
                                 if(!me.price.isDisabled() && me.tokenInfo && me.tokenInfo.estimated_value.btc!='0.00000000'){
-                                    var price_usd = me.main.getCurrencyPrice('bitcoin','usd');
+                                    var price_usd = me.main.getCurrencyPrice('unobtanium','usd');
                                     // Calculate price via ((asset_btc_price * quantity) * current_btc_price)
                                     // We do this because it is more accurate than using the asset USD value
                                     var price = (me.tokenInfo.estimated_value.btc *  numeral(newVal).value()) * price_usd;
@@ -219,7 +219,7 @@ Ext.define('FW.view.Send', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         me.image       = me.down('[itemId=image]');
@@ -254,7 +254,7 @@ Ext.define('FW.view.Send', {
             me.priority.reset();
         }
         // Set asset and update asset field value
-        var asset = (cfg.asset) ? cfg.asset : 'BTC';
+        var asset = (cfg.asset) ? cfg.asset : 'UNO';
         me.asset.setValue(asset);
         // Get aset value and update image and balance (do this so asset and icon always match)
         var val = me.asset.getValue();
@@ -268,11 +268,11 @@ Ext.define('FW.view.Send', {
     // Handle getting information on a specific token
     getTokenInfo: function(asset){
         var me = this;
-        if(asset=='BTC'){
-            var price_usd = me.main.getCurrencyPrice('bitcoin','usd'),
-                price_btc = me.main.getCurrencyPrice('counterparty','btc');
+        if(asset=='UNO'){
+            var price_usd = me.main.getCurrencyPrice('unobtanium','usd'),
+                price_btc = me.main.getCurrencyPrice('unoparty','uno');
             me.tokenInfo = {
-                asset: 'BTC',
+                asset: 'UNO',
                 estimated_value : {
                     btc: 1.00000000,
                     usd: price_usd,
@@ -281,8 +281,8 @@ Ext.define('FW.view.Send', {
             };
             me.price.enable();
         } else {
-            me.main.getTokenInfo(asset, function(o){ 
-                me.tokenInfo = o; 
+            me.main.getTokenInfo(asset, function(o){
+                me.tokenInfo = o;
                 if(String(o.asset_longname).trim().length)
                     me.asset.setValue(o.asset_longname);
                 // enable/disable price field based on if the asset has any known value
@@ -298,12 +298,12 @@ Ext.define('FW.view.Send', {
 
     // Handle updating the image
     updateImage: function(asset){
-        var me  = this, 
+        var me  = this,
             src = 'resources/images/wallet.png';
         if(asset)
-            src = 'https://xchain.io/icon/' + asset.toUpperCase() + '.png';
-        if(asset=='BTC')
-            src = 'resources/images/icons/btc.png';
+            src = 'https://unoparty.xchain.io/icon/' + asset.toUpperCase() + '.png';
+        if(asset=='UNO')
+            src = 'resources/images/icons/uno.png';
         me.image.setSrc(src);
     },
 
@@ -312,7 +312,7 @@ Ext.define('FW.view.Send', {
     updateBalance: function(asset){
         var me      = this,
             store   = Ext.getStore('Balances'),
-            prefix  = FW.WALLET_ADDRESS.address.substr(0,5);
+            prefix  = FWUE.WALLET_ADDRESS.address.substr(0,5);
             balance = 0,
             values  = false,
             format  = '0,0';
@@ -351,8 +351,8 @@ Ext.define('FW.view.Send', {
             msg     = false,
             amount  = String(vals.amount).replace(',',''),
             amt_sat = me.main.getSatoshis(amount),
-            fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' BTC','')),
-            bal_sat = me.main.getSatoshis(me.main.getBalance('BTC'));
+            fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' UNO','')),
+            bal_sat = me.main.getSatoshis(me.main.getBalance('UNO'));
         // Verify that we have all the info required to do a send
         if(vals.amount==0){
             msg = 'You must enter a send amount';
@@ -360,10 +360,10 @@ Ext.define('FW.view.Send', {
             msg = 'You must enter a valid address';
         } else {
             if(fee_sat > bal_sat)
-                msg = 'BTC balance below required amount.<br/>Please fund this address with some Bitcoin and try again.';
-            if(vals.asset=='BTC' && (amt_sat + fee_sat) > bal_sat)
+                msg = 'UNO balance below required amount.<br/>Please fund this address with some Unobtanium and try again.';
+            if(vals.asset=='UNO' && (amt_sat + fee_sat) > bal_sat)
                 msg = 'Total exceeds available amount!<br/>Please adjust the amount or miner fee.';
-            if(vals.asset!='BTC' && parseFloat(amount) > parseFloat(me.balance))
+            if(vals.asset!='UNO' && parseFloat(amount) > parseFloat(me.balance))
                 msg = 'Amount exceeds balance amount!';
         }
         if(msg){
@@ -392,7 +392,7 @@ Ext.define('FW.view.Send', {
             };
             // Convert amount to satoshis
             amt_sat = (/\./.test(vals.available)) ? amt_sat : String(vals.amount).replace(/\,/g,'');
-            me.main.cpSend(FW.WALLET_NETWORK, FW.WALLET_ADDRESS.address, vals.destination, vals.asset, amt_sat, fee_sat, cb);
+            me.main.cpSend(FWUE.WALLET_NETWORK, FWUE.WALLET_ADDRESS.address, vals.destination, vals.asset, amt_sat, fee_sat, cb);
         }
         // Confirm action with user
         var asset = (me.tokenInfo.asset_longname && me.tokenInfo.asset_longname!='') ? me.tokenInfo.asset_longname : me.tokenInfo.asset;
@@ -407,9 +407,9 @@ Ext.define('FW.view.Send', {
     updateForm: function(o){
         var me = this;
         if(o){
-            if(o.asset) 
+            if(o.asset)
                 me.asset.setValue(o.asset);
-            if(o.address) 
+            if(o.address)
                 me.destination.setValue(o.address);
             if(o.amount)
                 me.amount.setValue(numeral(o.amount).value());

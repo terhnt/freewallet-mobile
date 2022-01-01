@@ -4,7 +4,7 @@
  * Handles displaying currency balances
  */
 
-Ext.define('FW.view.MainMenu', {
+Ext.define('FWUE.view.MainMenu', {
     extend: 'Ext.Menu',
     xtype: 'fw-mainmenu',
 
@@ -39,63 +39,63 @@ Ext.define('FW.view.MainMenu', {
             icon: 'fa-edit', 
             leaf: true,
             handler: function(){
-                FW.app.getController('Main').showAddressListView();
+                FWUE.app.getController('Main').showAddressListView();
             }
         },{
             text: 'View Wallet Address', 
             icon: 'fa-bitcoin', 
             leaf: true,
             handler: function(){
-                FW.app.getController('Main').showQRCodeView({ text: FW.WALLET_ADDRESS.address });
+                FWUE.app.getController('Main').showQRCodeView({ text: FWUE.WALLET_ADDRESS.address });
             }
         },{
             text: 'Scan QR Code', 
             icon: 'fa-qrcode', 
             leaf: true,
             handler: function(){
-                FW.app.getController('Main').generalQRCodeScan();
+                FWUE.app.getController('Main').generalQRCodeScan();
             }
         },{
             text: 'Send',
             icon: 'fa-paper-plane',
             leaf: true,
             handler: function(){
-                FW.app.getController('Main').showTool('send',{ reset: true });
+                FWUE.app.getController('Main').showTool('send',{ reset: true });
             }
         },{
             text: 'Receive',
             icon: 'fa-smile-o',
             leaf: true,
             handler: function(){
-                FW.app.getController('Main').showTool('receive',{ reset: true });
+                FWUE.app.getController('Main').showTool('receive',{ reset: true });
             }
         },{
             text: 'Issue Token',
             icon: 'fa-bank',
             leaf: true,
             handler: function(){
-                FW.app.getController('Main').showTool('issue',{ reset: true });
+                FWUE.app.getController('Main').showTool('issue',{ reset: true });
             }
         },{
             text: 'Broadcast Message',
             icon: 'fa-bullhorn',
             leaf: true,
             handler: function(){
-                FW.app.getController('Main').showTool('broadcast',{ reset: true });
+                FWUE.app.getController('Main').showTool('broadcast',{ reset: true });
             }
         },{
             text: 'Sign Message',
             icon: 'fa-edit',
             leaf: true,
             handler: function(){
-                FW.app.getController('Main').showTool('sign',{ reset: true });
+                FWUE.app.getController('Main').showTool('sign',{ reset: true });
             }
         },{
             text: 'Decentralized Exchange',
             icon: 'fa-exchange',
             leaf: true,
             handler: function(){
-                FW.app.getController('Main').showTool('exchange',{ reset: true });
+                FWUE.app.getController('Main').showTool('exchange',{ reset: true });
             }
         }]
     },
@@ -105,11 +105,11 @@ Ext.define('FW.view.MainMenu', {
         var me  = this,
             cfg = me.config
         // Setup alias to main controller
-        me.main     = FW.app.getController('Main');
+        me.main     = FWUE.app.getController('Main');
         me.menutree = me.down('fw-menutree');
         // Define the data store
         var store = Ext.create('Ext.data.TreeStore', {
-            model: 'FW.model.MenuTree',
+            model: 'FWUE.model.MenuTree',
             defaultRootProperty: 'items',
             root: {
                 items: cfg.storeData

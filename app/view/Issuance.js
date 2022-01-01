@@ -1,12 +1,12 @@
 /*
- * Issuance.js - View 
+ * Issuance.js - View
  *
  * Display issuance form
  */
- 
-Ext.define('FW.view.Issuance', {
+
+Ext.define('FWUE.view.Issuance', {
     extend: 'Ext.form.Panel',
-    
+
     config: {
         id: 'issuanceView',
         layout: 'vbox',
@@ -114,7 +114,7 @@ Ext.define('FW.view.Issuance', {
                             me.description.setValue(desc);
                         }
                     }
-                }]                
+                }]
             },{
                 xtype: 'fw-transactionpriority',
                 margin: '0 0 0 0'
@@ -138,14 +138,14 @@ Ext.define('FW.view.Issuance', {
             }]
         }]
     },
-    
+
 
     // Handle initializing the screen
     initialize: function(){
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         me.type        = me.down('[name=type]');
@@ -194,12 +194,12 @@ Ext.define('FW.view.Issuance', {
             len     = vals.name.length,
             type    = vals.type,
             first   = vals.name.substr(0,1),
-            btc_bal = me.main.getBalance('BTC'),
-            xcp_bal = me.main.getBalance('XCP'),
-            fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' BTC','')),
+            btc_bal = me.main.getBalance('UNO'),
+            xcp_bal = me.main.getBalance('XUP'),
+            fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' UNO','')),
             btc_sat = me.main.getSatoshis(btc_bal),
             qty_sat = me.main.getSatoshis(vals.quantity);
-        // Validate the issuance data and display any 
+        // Validate the issuance data and display any
         if(vals.name==''){
             msg = 'You must enter a token name';
         } else if(type==1){
@@ -210,7 +210,7 @@ Ext.define('FW.view.Issuance', {
             else if(first=='A')
                 msg = 'Alphabetical tokens can not start with the letter A.';
             else if(xcp_bal<0.5)
-                msg = '0.5 XCP Required.<br/>Please fund this address with some XCP and try again.';
+                msg = '0.5 XUP Required.<br/>Please fund this address with some XUP and try again.';
         } else if(type==2){
             if(len<19||len>21)
                 msg = 'Numeric tokens must be between 19-21 characters long.';
@@ -224,7 +224,7 @@ Ext.define('FW.view.Issuance', {
             else if(vals.name.indexOf('..')!=-1)
                 msg = 'Subassets cannot contain multiple consecutive periods (..)';
         } else if(fee_sat > btc_sat){
-            msg = 'Bitcoin balance below required amount.<br/>Please fund this address with some Bitcoin and try again.';
+            msg = 'Unobtanium balance below required amount.<br/>Please fund this address with some Unobtanium and try again.';
         }
         if(msg){
             Ext.Msg.alert(null,msg);
@@ -249,17 +249,17 @@ Ext.define('FW.view.Issuance', {
                     me.priority.reset();
                 }
             };
-            me.main.cpIssuance(FW.WALLET_NETWORK, FW.WALLET_ADDRESS.address, vals.name, vals.description, vals.divisible, qty_sat, null, fee_sat, cb);
-        }        
+            me.main.cpIssuance(FWUE.WALLET_NETWORK, FWUE.WALLET_ADDRESS.address, vals.name, vals.description, vals.divisible, qty_sat, null, fee_sat, cb);
+        }
         // Make call to xchain API to check if asset already is registered
-        var host = (FW.WALLET_NETWORK==2) ? 'testnet.xchain.io' : 'xchain.io';
+        var host = (FWUE.WALLET_NETWORK==2) ? 'testnet.unoparty.xchain.io' : 'unoparty.xchain.io';
         me.main.ajaxRequest({
             url: 'https://' + host + '/api/asset/' + vals.name,
             success: function(o){
                 var valid = false;
-                if(o.error=='Asset not found' || o.owner==FW.WALLET_ADDRESS.address)
+                if(o.error=='Asset not found' || o.owner==FWUE.WALLET_ADDRESS.address)
                     valid = true;
-                else if(o.owner!=FW.WALLET_ADDRESS.address)
+                else if(o.owner!=FWUE.WALLET_ADDRESS.address)
                     Ext.Msg.alert(null,'Token is already registered to a different address.');
                 if(valid){
                     // Confirm action with user

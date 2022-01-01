@@ -1,9 +1,9 @@
 /*
- * Counterparty.js - Controller
- * 
- * Defines most of the counterparty-related functions
+ * Unoparty.js - Controller
+ *
+ * Defines most of the unoparty-related functions
  */
-Ext.define('FW.controller.Counterparty', {
+Ext.define('FWUE.controller.Unoparty', {
     extend: 'Ext.app.Controller',
     requires: [
         'Ext.MessageBox',
@@ -13,15 +13,15 @@ Ext.define('FW.controller.Counterparty', {
     // Setup alias back to main controller
     launch: function(){
         var me = this;
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
     },
 
 
-    // Handle sending a JSON-RPC request to a counterparty server
+    // Handle sending a JSON-RPC request to a unoparty server
     request: function(request, callback){
         var me   = this,
-            net  = (FW.WALLET_NETWORK==2) ? 'testnet' : 'mainnet',
-            info = FW.SERVER_INFO[net],
+            net  = (FWUE.WALLET_NETWORK==2) ? 'testnet' : 'mainnet',
+            info = FWUE.SERVER_INFO[net],
             url  = ((info.cpSSL) ? 'https' : 'http') + '://' + info.cpHost + ':' + info.cpPort + '/api/',
             auth = $.base64.btoa(info.cpUser + ':' + info.cpPass);
         // Stash the original success function for use later
@@ -31,7 +31,7 @@ Ext.define('FW.controller.Counterparty', {
             // Handle processing successfull responses
             success: function(res){
                 var o = res;
-                // Handle trying to decode the response text 
+                // Handle trying to decode the response text
                 if(res.responseText){
                     try {
                         var o = Ext.decode(res.responseText);
@@ -44,7 +44,7 @@ Ext.define('FW.controller.Counterparty', {
             },
             failure: function(res){
                 if(res.status==0)
-                    Ext.Msg.alert('Error','Error communicating with counterparty server');
+                    Ext.Msg.alert('Error','Error communicating with unoparty server');
                 if(callback)
                     callback();
             },
@@ -57,7 +57,7 @@ Ext.define('FW.controller.Counterparty', {
             timeout: 60000,             // timeout after 60 seconds of waiting
             useDefaultXhrHeader: false, // Set to false to make CORS requests (cross-domain)
             headers: {
-                'Authorization': 'Basic ' + auth, 
+                'Authorization': 'Basic ' + auth,
                 'Content-Type': 'application/json; charset=UTF-8'
             },
             success: fn.success,        // Success function called when we receive a success response
@@ -85,7 +85,7 @@ Ext.define('FW.controller.Counterparty', {
                 },
                 jsonrpc: "2.0",
                 id: 0
-            },            
+            },
             success: function(o){
                 if(callback)
                     callback(o);
@@ -112,7 +112,7 @@ Ext.define('FW.controller.Counterparty', {
                 },
                 jsonrpc: "2.0",
                 id: 0
-            },            
+            },
             success: function(o){
                 if(callback)
                     callback(o);
@@ -141,7 +141,7 @@ Ext.define('FW.controller.Counterparty', {
                 },
                 jsonrpc: "2.0",
                 id: 0
-            },            
+            },
             success: function(o){
                 if(callback)
                     callback(o);
@@ -150,8 +150,7 @@ Ext.define('FW.controller.Counterparty', {
 
     }
 
-    
+
 
 
 });
-    

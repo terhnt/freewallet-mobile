@@ -3,7 +3,7 @@
  * 
  * Spinner field to support floating numbers
  */
-Ext.define('FW.view.field.Spinner', {
+Ext.define('FWUE.view.field.Spinner', {
     extend: 'Ext.field.Spinner',
     xtype: 'fw-spinnerfield',
     

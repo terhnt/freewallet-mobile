@@ -4,7 +4,7 @@
  * Field with an action button to the right button
  */
 
- Ext.define('FW.view.field.Action', {
+ Ext.define('FWUE.view.field.Action', {
     extend: 'Ext.Container',
     xtype: 'fw-actionfield',
 

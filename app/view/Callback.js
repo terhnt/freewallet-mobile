@@ -1,10 +1,10 @@
 /*
- * FW.view.Callback.js - View 
+ * FWUE.view.Callback.js - View 
  *
  * Handle confirming callback details with user and making callback
  */
 
-Ext.define('FW.view.Callback', {
+Ext.define('FWUE.view.Callback', {
     extend: 'Ext.Panel',
     xtype: 'fw-callback',
 
@@ -115,7 +115,7 @@ Ext.define('FW.view.Callback', {
     initialize: function(){
         var me  = this,
             cfg = me.config;
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         // Adjust the box to be wider for tablets
         var w  = (me.main.deviceType=='tablet') ? 400 : '90%'
         me.setWidth(w);

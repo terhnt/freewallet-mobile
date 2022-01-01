@@ -1,13 +1,13 @@
-FreeWallet
+FreeWallet Unobtanium
 =====
-FreeWallet is an open source mobile wallet which supports Bitcoin and Counterparty.
+FreeWallet Unobtanium is an open source mobile wallet forked from Freewallet.io which supports Unobtanium and Unoparty.
 
 Features
 =====
 - **Secure** - Wallet Passphrase & private keys never leave device
-- **Send** - Send Bitcoin, XCP, and any counterparty token/asset
+- **Send** - Send Unobtanium, XUP, and any unoparty token/asset
 - **Receive** - Receive payments via scanning QRCode
-- **Issue** - Create a Counterparty token/asset
+- **Issue** - Create a Unoparty token/asset
 - **Sign** - Sign any message
 - **Broadcast** - Broadcast any message
 - **Passcode/PIN** - Protect wallet with additional security
@@ -18,4 +18,4 @@ Features
 
 Comments or Questions?
 =====
-Submit an issue here or send email to info@freewallet.io
+Submit an issue here or send email to info@unobtanium.uno or the original developers info@freewallet.io

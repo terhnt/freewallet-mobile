@@ -12,7 +12,7 @@ var CWHierarchicalKey = function(passphrase, password) {
     checkArgType(password, "string");
     passphrase = CWBitcore.decrypt(passphrase, password);
   }
-  // same as bitcoinjs-lib :
+  // same as unobtaniumjs-lib :
   // m : masterkery / 0' : first private derivation / 0 : external account / i : index
   this.basePath = 'm/0\'/0/';
   this.useOldHierarchicalKey = false;

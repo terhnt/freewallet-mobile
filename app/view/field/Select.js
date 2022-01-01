@@ -4,7 +4,7 @@
  * Select field that supports custom picker templates
  */
 
-Ext.define('FW.view.field.Select', {
+Ext.define('FWUE.view.field.Select', {
     extend : 'Ext.field.Select',
     xtype  : 'fw-selectfield',
 

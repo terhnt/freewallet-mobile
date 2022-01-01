@@ -4,12 +4,12 @@
  * Handles displaying transaction history
  */
 
-Ext.define('FW.view.History', {
+Ext.define('FWUE.view.History', {
     extend: 'Ext.Container',
 
     requires:[
-        'FW.view.phone.History',
-        'FW.view.tablet.History'
+        'FWUE.view.phone.History',
+        'FWUE.view.tablet.History'
     ],
 
     config: {
@@ -22,9 +22,9 @@ Ext.define('FW.view.History', {
     initialize: function(){
         var me = this;
         // Setup alias to main controller
-        me.main  = FW.app.getController('Main');
+        me.main  = FWUE.app.getController('Main');
         // Add view based on device type
-        me.add({ xclass:'FW.view.' + me.main.deviceType + '.History' });
+        me.add({ xclass:'FWUE.view.' + me.main.deviceType + '.History' });
         // Setup some aliases to the various components
         me.list  = me.down('fw-transactionslist');
         me.info  = me.down('fw-transactioninfo');

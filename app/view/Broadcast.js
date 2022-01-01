@@ -4,7 +4,7 @@
  * Display broadcast message form
  */
 
-Ext.define('FW.view.Broadcast', {
+Ext.define('FWUE.view.Broadcast', {
     extend: 'Ext.form.Panel',
     
     config: {
@@ -86,7 +86,7 @@ Ext.define('FW.view.Broadcast', {
         var me  = this,
             cfg = me.config;
         // Setup alias to main controller
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.tb   = me.down('fw-toptoolbar');
         // Setup aliases to the various fields
         // me.address   = me.down('[name=address]');
@@ -133,12 +133,12 @@ Ext.define('FW.view.Broadcast', {
         if(vals.message==''){
             msg = 'You must enter a message';
         } else {
-            // Validate that we have enough BTC to cover this transaction
-            var balance = me.main.getBalance('BTC'),
-                fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' BTC','')),
+            // Validate that we have enough UNO to cover this transaction
+            var balance = me.main.getBalance('UNO'),
+                fee_sat = me.main.getSatoshis(String(vals.feeAmount).replace(' UNO','')),
                 bal_sat = me.main.getSatoshis(balance);
             if(fee_sat > bal_sat)
-                msg = 'Bitcoin balance below required amount.<br/>Please fund this address with some Bitcoin and try again.';
+                msg = 'Unobtanium balance below required amount.<br/>Please fund this address with some Unobtanium and try again.';
         }
         if(msg){
             Ext.Msg.alert(null,msg);
@@ -164,7 +164,7 @@ Ext.define('FW.view.Broadcast', {
                     me.priority.reset();
                 }
             };
-            me.main.cpBroadcast(FW.WALLET_NETWORK, FW.WALLET_ADDRESS.address, vals.message, numeral(vals.value).value(), vals.fee, fee_sat, cb);
+            me.main.cpBroadcast(FWUE.WALLET_NETWORK, FWUE.WALLET_ADDRESS.address, vals.message, numeral(vals.value).value(), vals.fee, fee_sat, cb);
         }
         // Confirm action with user
         Ext.Msg.confirm('Confirm Broadcast', 'Send Broadcast?', function(btn){

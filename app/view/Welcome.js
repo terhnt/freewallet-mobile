@@ -4,7 +4,7 @@
  * Welcome screen to help users get wallet setup
  */
 
-Ext.define('FW.view.Welcome', {
+Ext.define('FWUE.view.Welcome', {
     extend: 'Ext.Container',
 
     config: {
@@ -68,7 +68,7 @@ Ext.define('FW.view.Welcome', {
 
     initialize: function(){
         var me = this;
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         me.spinner = me.down('[itemId=spinner]')
         me.callParent();
     },

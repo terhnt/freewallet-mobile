@@ -1,10 +1,10 @@
 /*
- * FW.view.Scan.js - View 
+ * FWUE.view.Scan.js - View 
  *
  * Handle displaying a view requesting the user to scan a QR code
  */
 
-Ext.define('FW.view.Scan', {
+Ext.define('FWUE.view.Scan', {
     extend: 'Ext.Panel',
     xtype: 'fw-scanqrcode', 
 
@@ -42,7 +42,7 @@ Ext.define('FW.view.Scan', {
     initialize: function(){
         var me  = this,
             cfg = me.config;
-        me.main = FW.app.getController('Main');
+        me.main = FWUE.app.getController('Main');
         if(cfg.callback)
             me.callback = cfg.callback;
         me.callParent();

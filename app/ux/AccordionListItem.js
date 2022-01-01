@@ -90,7 +90,7 @@
  *  });
  *
  */
-Ext.define('FW.ux.AccordionListItem', {
+Ext.define('FWUE.ux.AccordionListItem', {
     extend: 'Ext.dataview.component.ListItem',
     xtype: 'accordionlistitem',
 
